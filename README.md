@@ -7,7 +7,7 @@ This project was made with the Denizen scripting language in Minecraft. It would
 
 Here, I will show you how to install my own Nemesis System on your own server (it's very easy, mostly drag-and-drop), NO MODS NEEDED (NOT COMPATIBLE WITH FABRIC/FORGE SERVERS. YOU CAN JOIN WITH A VANILLA CLIENT)
 
-MY NEMESIS SYSTEM IS CURRENTLY IN ALPHA! THERE ARE BOUND TO BE BUGS! IT STILL NEEDS LOTS OF POLISH! BUT I THINK IT IS READY FOR THE PUBLIC TO SEE AND USE!
+MY NEMESIS SYSTEM IS CURRENTLY IN ALPHA! THERE ARE BOUND TO BE BUGS! IT STILL NEEDS LOTS OF POLISH! But I think it is ready for the public to see and use for feedback! You should be able to have 10s of hours with this!
 
 
 You will need a Paper/Purpur server to be able to run the Minecraft Nemesis System. Paper is very optimized for performance and has a helpful API for plugin developers to use. Most servers on Minecraft use Paper, although Purpur is catching up fairly fast in terms of popularity. Almost every plugin that works on Paper will work on Purpur. Purpur has everything Paper has, as well as an INSANE amount of customizable options. If you want "drakes" and "caragors", Purpur is the way to go. It also has slightly better performance than Paper due to including Pufferfish, another server implementation in it.
