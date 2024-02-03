@@ -39,7 +39,7 @@ If you decided to use Purpur and want to ride mobs, this plugin is REQUIRED. Eve
 After you have installed these plugins, restart your server.
 
 
-Once you have restarted your server, download the .dsc files at the top of this page (click the green button and click download as zip). 
+Once you have restarted your server, download the .dsc files at the top of this page (click the green button and click download zip). 
 Go into your server file manager, go to the following folders: plugins --> Denizen --> scripts
 Upload the .dsc files in the scripts folder
 ![image](https://github.com/MCNemesisSystem/Minecraft-Nemesis-System/assets/158676456/fe17ae0f-1ad3-453d-b5eb-ad738781fa03)
