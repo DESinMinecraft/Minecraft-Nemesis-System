@@ -59,8 +59,11 @@ https://github.com/mcmonkeyprojects/Sentinel/blob/master/README.md
 Modify the server difficulty with /difficulty if you think it is too easy. By default, Minecraft sets it to Easy. With this script installed, it certainly won't be Easy, I'll tell you that.
 
 Easy - Actually is a bit difficult. You will likely die every now and then
+
 Normal - Think of it as Hard++ difficulty. You will highly, highly likely die at least once in your playthrough. Death is nothing to be upset about
+
 Hard - You are insane if you play on this gamemode. Your life will be brutal. You WILL die. Constantly. Death is just a daily habit to you.
+
 Hardcore - I don't even think it's possible to beat the Ender Dragon on Hardcore. I seriously don't think it's possible. Show me a video if you do it.
 
 
