@@ -64,7 +64,7 @@ Normal - Think of it as Hard++ difficulty. You will highly, highly likely die at
 
 Hard - You are insane if you play on this gamemode. Your life will be brutal. You WILL die. Constantly. Death is just a daily habit to you.
 
-Hardcore - I don't even think it's possible to beat the Ender Dragon on Hardcore. I seriously don't think it's possible. Show me a video if you do it.
+Hardcore - I don't even think it's possible to beat the Ender Dragon on Hardcore. I seriously don't think it's possible. Show me a video if you do it. Make sure to generate 5 Nemeses before you do it. (set the difficulty to easy first, then hardcore once you start)
 
 
 There are 5 enemy class types:
@@ -83,7 +83,7 @@ You, the player, have the following abilities:
 4. Stealth Attack: Sneak + damage an enemy from behind to do 2x damage.
 5. Combo: Whenever you damage an entity, your combo will build up. Higher combo = more damage. If you get damaged, your combo will reset to 0.
 6. Might: By default, hit entities to gain +1 Might. If you get hit, you lose -1 Might. Might can be used to do AOE attacks (so far). When your Might is full, right click with a sword/axe on the ground to do an AOE attack, or left click a bow/crossbow/trident, then shoot to do an AOE ranged attack.
-7. The Ring: Allows you to convert certain monsters to your side. **So far, a Nemesis CAN NOT be converted.** By default, this is not given to you. You need to get an ***Amethyst Shard*** to be able to convert certain monsters. **If you want The Ring, you can /op yourself and then type the following command: /ex give convertitem**. Right click monsters that you want to fight for you.
+7. The Ring: Allows you to convert certain monsters to your side. **So far, a Nemesis CAN NOT be converted.** By default, this is not given to you. You need to get an ***Amethyst Shard*** to be able to convert certain monsters. **If you want The Ring, you can /op yourself and then type the following command: /ex give convertitem**. With it, right click monsters that you want to fight for you.
 
 **If you added the SkillTree file, you can do /skilltree to upgrade your abilities! Every 10 xp levels = 1 new skill point**
 
