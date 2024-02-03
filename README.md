@@ -3,7 +3,7 @@ Welcome to the Github Minecraft Nemesis System (also called **Dynamic Enemy Syst
 Sadly, due to Warner Bros patenting the Nemesis System, I can't go in-depth with them remembering previous encounters with you. But I spent lots of time on giving them abilities, custom armor (aesthetically and with enchantments), custom weapons (custom enchantments), and a smart AI. They will also have unique names and combat personalities. 
 
 
-From here on out, the Minecraft Nemesis System will be referred to the **Dynamic Enemy System.**
+From here on out, the Minecraft Nemesis System will be referred to as the **Dynamic Enemy System.**
 
 This project was made with the Denizen scripting language in Minecraft. It would not be possible to create such a system otherwise (especially one that focuses a lot on NPCs). A huge thank you to the Denizen team for all their help and for all the work they've put into maintaining this scripting language. Anyone can learn Denizen (it is free!). It is very, very easy to learn. You can download it at https://denizenscript.com/. You can join their Discord for help (highly recommended) at discord.gg/Q6pZGSR.
 
