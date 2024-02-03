@@ -1,13 +1,3 @@
-NemesisSystemArmor:
-    type: task
-    script:
-    - foreach <player.item_in_hand.trim> key:key as:val:
-        - narrate "<[key]> is set as <[val]>"
-
-#EquipHelmet:
-#    type: task
-#    script:
-
 OrcGruntEquip:
     debug: false
     type: world
@@ -1383,6 +1373,8 @@ NemesisTarget:
         - wait 1s
         - if <context.entity.item_in_hand> matches *_axe:
             - define rchance 66
+        - if <context.entity.item_in_offhand> matches shield:
+            - define rchance 33
         - else:
             - define rchance 50
         - if <util.random_chance[<[rchance]>]>:
