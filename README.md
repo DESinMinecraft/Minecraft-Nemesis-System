@@ -1,3 +1,5 @@
+![Snag_1f8ab195](https://github.com/DESinMinecraft/Minecraft-Nemesis-System/assets/158676456/3e73b15c-2346-497d-801c-4f7ff9fa847f)
+
 # About the Project
 Welcome to the Github Minecraft Nemesis System (also called **Dynamic Enemy System**) repository! This was made by an individual programmer highly passionate about the Nemesis System in the Shadow of Mordor/Shadow of War games. I studied it a lot by playing the games, watching YouTube videos, and searching up wikis online. If you don't know what the Nemesis System is, it is a system that randomly generates enemies with unique names, weapons, armor, classes, abilities, fighting styles, personalities, physical characteristics, and voices. The more a Nemesis kills you or other Nemeses, the stronger that Nemesis will get, rising through the ranks of society. The Nemesis will remember you from previous encounters. 
 
