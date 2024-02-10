@@ -170,6 +170,7 @@ The abilities are:
       - LandMines (Lays down land mines that will explode if you pick them up)
       - Mounted (May spawn mounted on a horse, skeleton horse, zombie horse, spider, or chicken. If dismounted, may try to find and ride said mobs)
       - BadOmen (Gives Bad Omen to whoever kills them)
+      - GolemToss (Tosses you up like an Iron Golem when they hit you)
 
 # Other Info
 
