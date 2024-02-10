@@ -75,9 +75,9 @@ Once you have uploaded the files in the scripts folder, restart the server. The 
 
 Default zombies and skeletons won't spawn. This is intended.
 
-Husks/strays/pigman/piglin type mobs will have weapons, armor, and classes associated to them. Dying to these mob types will generate a Nemesis in the server database. The Nemesis has a 50/50 chance of spawning at the location where you died or be despawned (for now... they'll come to harass you later).
+Husks/strays/pigman/piglin type mobs will have weapons, armor, and classes associated to them. They may even have unique armor trims. Dying to these mob types will generate a Nemesis in the server database. The Nemesis has a 50/50 chance of spawning at the location where you died or be despawned (for now... they'll come to harass you later).
 
-To view all Nemeses on the server, do **/npc list** (make sure you gave yourself /op). When starting a new world, die to 5 monsters (more if you have friends on) to generate new Nemeses. Once you have done so, you can run the command **/ex despawn 	<server.npcs>** and get started on surviving.
+To view all Nemeses on the server, do **/npc list** (make sure you gave yourself /op). When starting a new world, die to 5 monsters (more if you have friends on) to generate new Nemeses. Once you have done so, you can run the command **/ex despawn <server.npcs>** and get started on surviving.
 
 If you need to select a Nemesis for whatever reason, look at them and do **/npc sel** or type out their ID in **/npc list** and do **/npc sel (id)**. With a Nemesis selected, you can despawn them (**/npc despawn**), teleport them to you (**/npc tphere**), teleport yourself to them (**/npc tp**), permanently kill them (**/sentinel kill**), etc. 
 
@@ -180,6 +180,8 @@ Nemeses are smarter than other mobs! They have better pathfinding, are more pers
 Keep in mind, all generated Nemeses will also have randomized speed, reach, attack rates, different combat personalities, and may even attack other Nemeses!
 
 If a Nemesis dies, they will either drop all of their loot, a piece of their armor, or their weapon.
+
+If a Nemesis doesn't have armor when they kill you, then there is a chance those slots will be equipped with armor. If they don't have a helmet, there is also a chance for their head gear to be equipped with cosmetic armor, like a dragon head, or a wither skeleton skull, or even a carved pumpkin.
 
 The Nemesis can get pretty OP enchants, like Thorns 5 or Protection 5. You may get these if you kill them.
 
