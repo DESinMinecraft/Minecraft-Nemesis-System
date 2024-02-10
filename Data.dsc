@@ -131,6 +131,7 @@ AllEnchants:
       - LandMines
       - Mounted
       - BadOmen
+      - GolemToss
     Names:
       First:
       - Bob
@@ -165,6 +166,31 @@ AllEnchants:
       - Riney
       - Keppa
       - Prak
+      - Matel
+      - Grisse
+      - Krul
+      - Aelon
+      - Zamp
+      - Urdol
+      - Wren
+      - Bushamp
+      - Tahnk
+      - Vipen
+      - Eulan
+      - Quol
+      - Uma
+      - Darik
+      - Oxonn
+      - Malid
+      - Stino
+      - Iregge
+      - Yanzu
+      - Josh
+      - Elares
+      - Mobarne
+      - Andon
+      - Ehel
+      - Odann
       Last:
       - the Throgler
       - Kings Pawn
@@ -202,6 +228,30 @@ AllEnchants:
       - the Killer
       - from Hell
       - Jaws
+      - the Chosen One
+      - the Enlightened
+      - the Great
+      - the Terrible
+      - Havoc
+      - Hammerhead
+      - of the Water
+      - the Hopeful
+      - the Dark
+      - the Outcast
+      - the Forgotten
+      - the Joke
+      - who Succeeds
+      - the Rival
+      - Stronghand
+      - from the Skies
+      - Ironfist
+      - the Thief
+      - the Culler
+      - the Predator
+      - Boulder-Breaker
+      - Twig Legs
+      - Blood Blender
+      - the Leader
     Quotes:
       Digging:
       - Placing blocks won't help!
@@ -232,6 +282,23 @@ AllEnchants:
       - Hiding behind blocks?!?
       - Coward!
       - Fight me like a true warrior, <player.name>!
+      - Get away from there!
+      - Quit being a coward!
+      - Heh, there's no way to escape me.
+      - I hate it when you do this...
+      - Stop stalling!
+      - I know where you are <player.name>!
+      - I can hear you!
+      - So you are over there eh?
+      - I'm going to get you!
+      - I hear you... over there!
+      - Just so you know, I know exactly where you are.
+      - I will dig forever to get to you!
+      - I will keep coming for you!
+      - Digging isn't going to work!
+      - Hiding can only do so much!
+      - You can't hide, nor can you run.
+      - Ah, there you are <player.name>.
       HighUp:
       - Get down from there!
       - Hey <player.name>, get down here!
@@ -263,6 +330,25 @@ AllEnchants:
       - I'll keep throwing daggers then!
       - These daggers have been weighing me down anyhow.
       - <player.name>, going up can only help so much!
+      - I'm not letting you escape.
+      - You'll be swatted off like a fly!
+      - The bigger they are, the harder they fall!
+      - You're so bad that you need to use the high ground? Pathetic.
+      - The high ground makes no difference!
+      - Being up there will only make things worse.
+      - Stop resorting to cheap tactics!
+      - <player.name>, you make this a pain for me!
+      - Watch what happens next.
+      - Oh please, how is pillaring up going to help?
+      - Take this to the knee!
+      - Get off from up there!
+      - Get away from there!
+      - This will slap you away!
+      - Come right down to papa, <player.name>!
+      - I think you've enjoyed your view from up there for long enough.
+      - Zoning me out? Not on my watch!
+      - Tremble and fall down!
+      - Go on, tower up, and I'll do my worst!
       Adapted:
       - I've seen you do that before!
       - Not gonna work!
@@ -293,6 +379,21 @@ AllEnchants:
       - Adapted to that already!
       - Go on, keep spamming that! See how it goes!
       - Oh <player.name>, when will you change?
+      - Why did you think that would work?
+      - I had foresight on that.
+      - Just stop using that move!
+      - Why do you keep thinking that will work?
+      - Another repeated move, another day.
+      - I guess that's all you know.
+      - Hey <player.name>, go back to school!
+      - I saw that cheap trick coming again!
+      - Wasn't going to work this time!
+      - Have you ever learned?
+      - That wasn't going to work!
+      - That really is all you can do!
+      - Happened once, shame on me. Happens twice, shame on you!
+      - Yeah, uh, no.
+      - Wasn't going to work again, <player.name>!
       Fighting:
       - HA ha weakling!
       - I'll make your heaven harder than hell.
@@ -330,3 +431,28 @@ AllEnchants:
       - Are you supposed to be a threat?
       - Oh look at me, I'm sooooo scared of <player.name>!
       - Now you die!
+      - You'll die at my hand!
+      - Just make it easy for me and kill yourself!
+      - A true warrior never backs off from a fight.
+      - Do me a favor, and go commit suicide!
+      - Stop making this hard for me!
+      - You will never escape me, <player.name>!
+      - I want you to bleed.
+      - I want you to suffer.
+      - You really think you can kill me?
+      - You will die, right now!
+      - This will be a 1 way slaughter: against you!
+      - You have no chance.
+      - There's no chance for you <player.name>!
+      - Give it up, you're no good.
+      - This next hit may kill you.
+      - Are you trying your hardest?
+      - This fight is a total joke.
+      - And take this!
+      - As long as I am still standing, I will fight!
+      - Nothing can stop me!
+      - I am unstoppable.
+      - Do you have any last words?
+      - I am superior!
+      - I've got you where I want you!
+      - I'll do my best, while you do your worst!
