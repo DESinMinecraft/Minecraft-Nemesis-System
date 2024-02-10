@@ -562,7 +562,7 @@ NemesisMake:
                     - flag <entry[NCreate].created_npc> Dagger.Limit:<entry[NCreate].created_npc.flag[Dagger.Limit].div[2].round_down>
                     - flag <entry[NCreate].created_npc> Stealth.Limit:<entry[NCreate].created_npc.flag[Stealth.Limit].div[2].round_down>
 
-                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue:
+                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss:
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with_flag[<[Ability]>]>
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <entry[NCreate].created_npc> Hand:<entry[NCreate].created_npc.item_in_hand>
@@ -640,7 +640,7 @@ NemesisBuff:
                 - flag server <context.damager>Leggings:<context.damager.equipment.get[2]>
         - if <util.random_chance[50]> && <npc.equipment.get[4].enchantment_types.is_truthy.not>:
                 - if <npc.equipment.get[4]> matches air:
-                    - equip <context.damager> head:<list[leather_helmet|chainmail_helmet|golden_helmet|iron_helmet|diamond_helmet|netherite_helmet|air].random>
+                    - equip <context.damager> head:<list[leather_helmet|chainmail_helmet|golden_helmet|iron_helmet|diamond_helmet|netherite_helmet|creeper_head|zombie_head|piglin_head|dragon_head|skeleton_skull|wither_skeleton_skull|carved_pumpkin|player_head|air].random>
                 - define modifier <util.random.int[1].to[5]>
                 - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
                 - equip <context.damager> head:<context.damager.equipment.get[4]>[enchantments=<[RNGEnchant]>,<[modifier]>]
@@ -679,7 +679,7 @@ NemesisBuff:
                     - flag <context.damager> Stun.Limit:<context.damager.flag[Stun.Limit].div[2].round_down>
                     - flag <context.damager> Dagger.Limit:<context.damager.flag[Dagger.Limit].div[2].round_down>
                     - flag <context.damager> Stealth.Limit:<context.damager.flag[Stealth.Limit].div[2].round_down>
-                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue:
+                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss:
                     - equip <context.damager> hand:<context.damager.item_in_hand.with_flag[<[Ability]>]>
                     - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <context.damager> Hand:<context.damager.item_in_hand>
@@ -931,6 +931,9 @@ PlayerElementAttacks:
         - define yaw <util.random.decimal[-65].to[65]>
         - define pitch <util.random.decimal[-36].to[36]>
         - rotate <context.entity> yaw:<[yaw]> pitch:<[pitch]> duration:0.3s frequency:10t
+        after player damages entity with:item_flagged:GolemToss:
+        - adjust <context.entity> velocity:0,1.0,0
+        - playsound sound:ENTITY_IRON_GOLEM_ATTACK <context.entity.location> pitch:1
 
 NemesisHealthBar:
     debug: false
@@ -1152,6 +1155,16 @@ NemesisHeavyHitter:
         - define yaw <util.random.decimal[-65].to[65]>
         - define pitch <util.random.decimal[-36].to[36]>
         - rotate <context.entity> yaw:<[yaw]> pitch:<[pitch]> duration:0.3s frequency:10t
+
+NemesisGolemToss:
+    debug: false
+    type: world
+    events:
+        after NPC_flagged:GolemToss damages entity:
+        - if <npc.has_flag[Stunned]>:
+            - stop
+        - adjust <context.entity> velocity:0,1.0,0
+        - playsound sound:ENTITY_IRON_GOLEM_ATTACK <context.entity.location> pitch:1
 
 NemesisFireImmune:
     debug: false
