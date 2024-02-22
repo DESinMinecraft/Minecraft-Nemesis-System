@@ -171,6 +171,7 @@ The abilities are:
       - Mounted (May spawn mounted on a horse, skeleton horse, zombie horse, spider, or chicken. If dismounted, may try to find and ride said mobs)
       - BadOmen (Gives Bad Omen to whoever kills them)
       - GolemToss (Tosses you up like an Iron Golem when they hit you)
+      - DashStrike (Quickly launches towards you from a long distance, and delievers multi-hit damage. Unstunable when doing this ability, but can still take fall damage)
 
 # Other Info
 
