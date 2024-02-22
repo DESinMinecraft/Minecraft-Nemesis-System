@@ -137,7 +137,7 @@ OrcGruntSpearThrow:
                 - if <context.entity.has_flag[Convert]> && <context.target.is_player>:
                     - determine cancelled
                     - stop
-                - if <util.random_chance[15]>:
+                - if <util.random_chance[15]> && <context.entity.can_see[<context.target>]>:
                     - shoot trident origin:<context.entity.eye_location> shooter:<context.entity> destination:<context.target.eye_location> speed:3 spread:5
                 - else if <[loop_index]> <= 100:
                     - wait 3s
@@ -222,6 +222,8 @@ PlayerStunAttack:
     events:
         on player right clicks husk|stray|iron_golem|spider|creeper|ZOMBIFIED_PIGLIN|ZOMBIE_VILLAGER|PIGLIN|MAGMA_CUBE|WITHER_SKELETON|NPC|PIGLIN_BRUTE|DROWNED|ENDERMAN:
         - ratelimit <player> 2s
+        - if <player.item_in_hand> matches iron_ingot || <player.item_in_offhand> matches iron_ingot:
+            - stop
         - if ( <player.item_in_hand> matches AMETHYST_SHARD || <player.item_in_offhand> matches AMETHYST_SHARD || <player.item_in_hand> matches convertitem || <player.item_in_offhand> matches convertitem ) && ( !<context.entity.is_npc> ):
             - if <context.entity.has_flag[Convert]>:
                 - hurt <util.random.int[1].to[6]> <context.entity>
@@ -594,12 +596,15 @@ NemesisMake:
                     - assignment add GroundPound to:<entry[NCreate].created_npc>
                 - else if <[Ability]> matches LandMines:
                     - assignment add LandMineAssignment to:<entry[NCreate].created_npc>
+                - else if <[Ability]> matches DashStrike:
+                    - assignment add DashStrike to:<entry[NCreate].created_npc>
                 - narrate "<&4> <entry[NCreate].created_npc.name> learned <&e><[Ability]>" targets:<player>
                 - flag <entry[NCreate].created_npc> <[Ability]>
 
 
 NemesisBuff:
     type: world
+    debug: false
     events:
         on player|NPC dies by:NPC:
         - if <context.damager.has_flag[DontDelete]>:
@@ -622,32 +627,32 @@ NemesisBuff:
             - equip <context.damager> hand:<context.damager.item_in_hand>[enchantments=<[RNGEnchant]>,<[modifier]>]
             - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their main hand!"
             - flag server <context.damager>Hand:<context.damager.item_in_hand>
-        - if <util.random_chance[50]> && <npc.equipment.get[3].enchantment_types.is_truthy.not>:
-                - if <npc.equipment.get[3]> matches air:
+        - if <util.random_chance[50]> && <context.damager.equipment.get[3].enchantment_types.is_truthy.not>:
+                - if <context.damager.equipment.get[3]> matches air:
                     - equip <context.damager> chest:<list[leather_chestplate|chainmail_chestplate|golden_chestplate|iron_chestplate|diamond_chestplate|netherite_chestplate|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
                 - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
                 - equip <context.damager> chest:<context.damager.equipment.get[3]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their chestplate!"
                 - flag server <context.damager>Chestplate:<context.damager.equipment.get[3]>
-        - if <util.random_chance[50]> && <npc.equipment.get[2].enchantment_types.is_truthy.not>:
-                - if <npc.equipment.get[2]> matches air:
+        - if <util.random_chance[50]> && <context.damager.equipment.get[2].enchantment_types.is_truthy.not>:
+                - if <context.damager.equipment.get[2]> matches air:
                     - equip <context.damager> legs:<list[leather_leggings|chainmail_leggings|golden_leggings|iron_leggings|diamond_leggings|netherite_leggings|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
                 - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
                 - equip <context.damager> legs:<context.damager.equipment.get[2]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their leggings!"
                 - flag server <context.damager>Leggings:<context.damager.equipment.get[2]>
-        - if <util.random_chance[50]> && <npc.equipment.get[4].enchantment_types.is_truthy.not>:
-                - if <npc.equipment.get[4]> matches air:
+        - if <util.random_chance[50]> && <context.damager.equipment.get[4].enchantment_types.is_truthy.not>:
+                - if <context.damager.equipment.get[4]> matches air:
                     - equip <context.damager> head:<list[leather_helmet|chainmail_helmet|golden_helmet|iron_helmet|diamond_helmet|netherite_helmet|creeper_head|zombie_head|piglin_head|dragon_head|skeleton_skull|wither_skeleton_skull|carved_pumpkin|player_head|air].random>
                 - define modifier <util.random.int[1].to[5]>
                 - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
                 - equip <context.damager> head:<context.damager.equipment.get[4]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their helmet!"
                 - flag server <context.damager>Helmet:<context.damager.equipment.get[4]>
-        - if <util.random_chance[50]> && <npc.equipment.get[1].enchantment_types.is_truthy.not>:
-                - if <npc.equipment.get[1]> matches air:
+        - if <util.random_chance[50]> && <context.damager.equipment.get[1].enchantment_types.is_truthy.not>:
+                - if <context.damager.equipment.get[1]> matches air:
                      - equip <context.damager> boots:<list[leather_boots|chainmail_boots|golden_boots|iron_boots|diamond_boots|netherite_boots|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
                 - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
@@ -656,6 +661,7 @@ NemesisBuff:
                 - flag server <context.damager>Boots:<context.damager.equipment.get[1]>
 
         - flag <context.damager> Blocking:!
+        - flag <context.damager> DashDamage:!
         - define reroll <util.random.int[1].to[5]>
         - if <context.damager.list_flags.size> >= 10:
             - stop
@@ -715,6 +721,8 @@ NemesisBuff:
                     - assignment add GroundPound to:<context.damager>
                 - else if <[Ability]> matches LandMines:
                     - assignment add LandMineAssignment to:<context.damager>
+                - else if <[Ability]> matches DashStrike:
+                    - assignment add DashStrike to:<context.damager>
                 - flag <context.damager> <[Ability]>
                 - narrate "<&4><context.damager.name> learned <&e><[Ability]>" targets:<player>
 #            - if <context.damager.has_flag[PoisonDamage]> || <context.damager.has_flag[WitherDamage]> || <context.damager.has_flag[HungerDamage]> :
@@ -775,9 +783,9 @@ PlayerCombo:
             - bossbar Might players:<player> "title:<&6><&l>Might Ready (right click ground with sword/axe or left click bow)" color:red progress:<player.flag[Might].div[25]>
         - actionbar "<&2>Combo damage: <&9><&l><player.flag[combo]> <&0><&l>| <&6>Might: <&l><player.flag[Might]><&c>/<&4><&l>25"
         - if <[StealthDamage].exists>:
-            - determine <context.damage.add[<player.flag[combo]>].mul[0.5].add[<[StealthDamage]>]>
+            - determine <context.damage.add[<player.flag[combo]>].mul[0.45].add[<[StealthDamage]>]>
         - else:
-            - determine <context.damage.add[<player.flag[combo]>].mul[0.5]>
+            - determine <context.damage.add[<player.flag[combo]>].mul[0.45]>
 
 PlayerComboLost:
     debug: false
@@ -1073,7 +1081,7 @@ NemesisArrowProof:
     debug: false
     type: world
     events:
-        on *arrow hits NPC_flagged:ArrowProof:
+        on NPC_flagged:ArrowProof damaged by *arrow|arrow*:
         - determine passively cancelled
         - foreach <npc.location.find_players_within[25]> as:p:
             - ratelimit <[p]> 2s
@@ -1102,7 +1110,7 @@ NemesisExplosiveShot:
     debug: false
     type: world
     events:
-        after arrow||trident hits shooter:NPC_flagged:ExplosiveShot:
+        after arrow*|*arrow|trident hits shooter:NPC_flagged:ExplosiveShot:
         - ratelimit <context.projectile> 5s
         - if <context.shooter.has_flag[Stunned]>:
             - determine cancelled
@@ -1186,6 +1194,16 @@ NemesisDrowningImmune:
             - ratelimit <[p]> 15s
             - narrate "<&c><npc.name> can't drown!" targets:<[p]>
 
+NemesisAvoidDrowning:
+    debug: false
+    type: world
+    events:
+        on NPC_flagged:!ImmuneDrowning damaged by DROWNING chance:90:
+        - ratelimit <npc> 3s
+        - if <npc.location.find_spawnable_blocks_within[17].size> >= 1:
+            - ~walk <npc> <npc.location.find_spawnable_blocks_within[17].random>
+
+
 
 NemesisFireExtinguish:
     debug: false
@@ -1194,7 +1212,7 @@ NemesisFireExtinguish:
         after NPC_flagged:!ImmuneFire damaged by FIRE|FIRE_TICK|LAVA:
         #- ratelimit <npc> 8s
         - if <npc.health_percentage> <= 78 && <util.random_chance[80]>:
-            - foreach <npc.location.find_blocks[water].within[15]> as:b:
+            - foreach <npc.location.find_blocks[water].within[16]> as:b:
                 - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy>:
                     - ~walk <npc> <[b]>
                     - stop
@@ -1226,6 +1244,10 @@ NemesisSneaky:
     debug: false
     events:
         on NPC spawns:
+        - if <npc.item_in_hand> matches *sword:
+            - cast SPEED amplifier:0 duration:infinite <npc>
+        - else if <npc.item_in_offhand> matches shield:
+            - cast slow amplifier:0 duration:infinite <npc>
         - if <npc.has_flag[Sneaky]>:
             - wait 0.1s
             - if <util.random_chance[90]>:
@@ -1256,6 +1278,19 @@ NemesisMounted:
                         - mount <npc>|<[Mount]>
                         - foreach stop
             - wait 1s
+
+NemesisDashStrike:
+    type: task
+    debug: false
+    definitions: <npc>
+    script:
+        - while <npc.has_flag[DashStrike.Attack]>:
+            - foreach <npc.location.find.living_entities.within[6]> as:entity:
+                - if <[entity]> != <npc>:
+                    - flag <[entity]> DashDamage expire:8s
+                    - playeffect effect:FIREWORKS_SPARK <[entity].location> quantity:20
+                    - foreach next
+            - wait 0.007s
 
 
 
@@ -1412,14 +1447,14 @@ NemesisSpawn:
                     - define px <util.random.int[-25].to[25]>
                     - define py <util.random.int[-12].to[12]>
                     - define pz <util.random.int[-25].to[25]>
-                - if <server.flag[NemesisList].exists>:
+                - if <server.flag[NemesisList].exists> && <server.flag[NemesisList].size> >= 1:
                     - define RandomNemesis:<server.flag[NemesisList].random>
                     - despawn <[RandomNemesis]>
                     - wait 1t
                     - spawn <[RandomNemesis]> <[p].location.add[<[px]>,<[py]>,<[pz]>]>
                     - narrate "<&c>Careful <[p].name>! A Nemesis has spawned near you!" targets:<[p]>
                 - else:
-                    - narrate "<&4>There are no Nemeses in the database. Die to husk/stray/piglin/pigman type mobs to generate a Nemesis!" targets:<[p]>
+                    - narrate "<&4>There are no Nemeses in the database. Die to husk/stray/drowned/wither skeleton/piglin/pigman type mobs to generate a Nemesis!" targets:<[p]>
             - ratelimit <[p]> 10s
             - if <[p].location.find_npcs_within[22].size> == 0:
                 - sidebar remove
@@ -1786,7 +1821,7 @@ ReinforcementWolves:
            - define Amount <util.random.int[1].to[4]>
            - repeat <[Amount]>:
                 - spawn wolf <npc.location> target:<server.flag[<npc>target]>
-           - narrate "<&c><npc.name> called in wolfs for reinforcements!"
+           - narrate "<&c><npc.name> called in wolves for reinforcements!"
            - playsound sound:item_goat_horn_sound_6 <npc.location>
         on damaged:
         - trigger name:proximity state:true radius:22
@@ -1882,21 +1917,22 @@ Terrorize:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:20
+        - trigger name:proximity state:true radius:22
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 7s
-        - if <util.random_chance[17]> && <npc.location.find_entities[monster].within[20].size> >= 1 && !<npc.has_flag[Stunned]>:
+        - if <util.random_chance[17]> && <npc.location.find_entities[monster|hostile].within[22].size> >= 1 && !<npc.has_flag[Stunned]>:
             - playsound sound:BLOCK_SCULK_SHRIEKER_SHRIEK <npc.location> volume:2.5 pitch:0.9
             - cast slow <npc> amplifier:5 duration:1s
             - wait 1s
             - narrate "<&c><npc.name> used Terrorize! A horde of monsters approaches!"
-            - foreach <npc.location.find_entities[monster].within[20]> as:entity:
+            - foreach <npc.location.find_entities[monster].within[22]> as:entity:
                  - adjust <[entity]> last_hurt_by:<server.flag[<npc>target]>
+                 - attack <[entity]> target:<server.flag[<npc>target]>
                  - if <[loop_index]> >= 10:
                      - stop
         on damaged:
-        - trigger name:proximity state:true radius:20
+        - trigger name:proximity state:true radius:22
 
 
 BlockAttack:
@@ -1919,7 +1955,7 @@ BlockAttack:
             - playeffect effect:SWEEP_ATTACK <npc.location> quantity:5
             - narrate "<&c><npc.name> is now blocking melee attacks/stuns!"
             - waituntil !<npc.has_flag[Blocking]> rate:1t
-            - playsound sound:BLOCK_ANVIL_PLACE <player.location> pitch:1.2
+            - playsound sound:BLOCK_ANVIL_PLACE <npc.location> pitch:1.2
             - playeffect effect:FLASH <npc.location> quantity:1
             - narrate "<&c><npc.name> is no longer blocking melee attacks/stuns!"
         on damaged:
@@ -2042,6 +2078,7 @@ ThrowingDaggers:
                 - cast slow duration:0.3s amplifier:5 <npc>
             - repeat <[Amount]>:
                  - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<server.flag[<npc>target].eye_location> speed:1 spread:15
+                 - playsound sound:ITEM_TRIDENT_THROW <npc.location> pitch:2
                  - wait 0.15s
             - narrate "<&c><npc.name> shot some daggers!"
         on damaged:
@@ -2107,3 +2144,45 @@ GroundPound:
                     - wait 0.001s
         on damaged:
         - trigger name:proximity state:true radius:10
+
+
+DashStrike:
+    type: assignment
+    debug: false
+    actions:
+        on spawn:
+        - trigger name:proximity state:true radius:15
+        on move proximity:
+        - ratelimit <npc> 5s
+        - if <util.random_chance[20]> && ( <server.flag[<npc>target].eye_location.line_of_sight[<npc.eye_location>]> && <server.flag[<npc>target].location.line_of_sight[<npc.eye_location>]> ) && !<npc.has_flag[Stunned]>:
+            - narrate "<&c><npc.name> is about to Dash Strike!"
+            - playsound sound:ENTITY_FIREWORK_ROCKET_LAUNCH <npc.location> pitch:0.5
+            - look <npc> <server.flag[<npc>target].eye_location> duration:0.7s
+            - wait 0.5s
+            - playsound sound:ENTITY_ENDERMAN_TELEPORT <npc.location> pitch:0.6
+            - flag <npc> DashStrike.Attack expire:1s
+            - foreach <npc.location.find.living_entities.within[3]> as:entity:
+                - if <[entity]> != <npc>:
+                    - flag <[entity]> DashDamage expire:8s
+                    - playeffect effect:FIREWORKS_SPARK <[entity].location> quantity:20
+                    - foreach next
+            - if <player> == <server.flag[<npc>target]> && <player.location.distance[<npc.location>]> <= 6:
+                - flag <player> DashDamage expire:8s
+            - ~push <npc> origin:<npc> speed:1.55 duration:0.75s no_damage script:NemesisDashStrike
+            - narrate "<&c><npc.name> has Dash Striked!"
+            - foreach <npc.location.find.living_entities.within[40]> as:entity:
+                - if <[entity].has_flag[DashDamage]> && <[entity]> != <npc>:
+                    - adjust <[entity]> max_no_damage_duration:0s
+                    - repeat 3:
+                        - hurt 0.3 <[entity]> source:<npc>
+                        - playsound sound:entity_player_hurt <[entity].location>
+                        - if <[entity].is_player>:
+                            - animate <[entity]> animation:HURT
+                        - wait 2t
+                - adjust <[entity]> max_no_damage_duration:1s
+                - flag <[Entity]> DashDamage:!
+        on push:
+        - if <npc.has_flag[DashStrike.Attack]>:
+            - flag <player> DashDamage expire:8s
+        on damaged:
+        - trigger name:proximity state:true radius:15
