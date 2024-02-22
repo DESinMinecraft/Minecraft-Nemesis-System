@@ -132,6 +132,7 @@ AllEnchants:
       - Mounted
       - BadOmen
       - GolemToss
+      - DashStrike
     Names:
       First:
       - Bob
