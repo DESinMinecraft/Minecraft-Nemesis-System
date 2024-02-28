@@ -253,6 +253,19 @@ AllEnchants:
       - Twig Legs
       - Blood Blender
       - the Leader
+      - the World Ender
+      - Deathbringer
+      - Nightfire
+      - Who Sees
+      - Who Walks
+      - Who Hurts
+      - Bladesong
+      - the Black
+      - the Unseen
+      - the Greedful
+      - Who Cries
+      - Bloodtears
+      - Icesong
     Quotes:
       Digging:
       - Placing blocks won't help!
