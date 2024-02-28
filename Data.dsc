@@ -192,6 +192,32 @@ AllEnchants:
       - Andon
       - Ehel
       - Odann
+      - Jacobson
+      - Antimony
+      - Minthara
+      - Abaddon
+      - Tholix
+      - Maldonis
+      - Corypheus
+      - Thoraxis
+      - Taryn
+      - Phylox
+      - Hagederd
+      - Yamel
+      - Nyx
+      - Terryn
+      - Afteryn
+      - Moraxis
+      - Quid
+      - Quo
+      - Promethean
+      - Gygax
+      - Thyn
+      - Lygorax
+      - Pohban
+      - Meedin
+      - Wrex
+      - Tarrask
       Last:
       - the Throgler
       - Kings Pawn
