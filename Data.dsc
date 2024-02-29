@@ -192,6 +192,20 @@ AllEnchants:
       - Andon
       - Ehel
       - Odann
+      - Abaddon
+      - Samuel
+      - Naomi
+      - Olga
+      - Lamar
+      - Drygma
+      - Falastia
+      - Ganglo
+      - Crost
+      - Colearias
+      - Emovebaris
+      - Difosgeno
+      - Evigilo
+      - Donesenojax
       Last:
       - the Throgler
       - Kings Pawn
@@ -253,6 +267,19 @@ AllEnchants:
       - Twig Legs
       - Blood Blender
       - the Leader
+      - the Razor
+      - the Calculated
+      - the Besieger
+      - the Guardian of Order
+      - the Promised
+      - the Unknown
+      - the Martyr
+      - the Suffering
+      - the Archaic
+      - the Loud
+      - the Catastrophic
+      - the Intrepid
+      - the Nullifier
     Quotes:
       Digging:
       - Placing blocks won't help!
