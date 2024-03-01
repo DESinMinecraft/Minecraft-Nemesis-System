@@ -135,151 +135,189 @@ AllEnchants:
       - DashStrike
     Names:
       First:
-      - Bob
-      - Armo
-      - Keenu
-      - Jorn
-      - Eran
-      - Illos
-      - Akara
-      - Zesh
-      - Crass
-      - Hix
-      - Jarl
-      - Urun
-      - Damiel
-      - Worcasp
-      - Prish
-      - LLoren
-      - Froror
-      - Sunup
-      - Dorak
-      - Cobalt
-      - Branac
-      - Yuslaw
-      - Wislow
-      - Jasper
-      - Gorlock
-      - Jeffery
-      - Sana
-      - Ozark
-      - Xerxes
-      - Riney
-      - Keppa
-      - Prak
-      - Matel
-      - Grisse
-      - Krul
-      - Aelon
-      - Zamp
-      - Urdol
-      - Wren
-      - Bushamp
-      - Tahnk
-      - Vipen
-      - Eulan
-      - Quol
-      - Uma
-      - Darik
-      - Oxonn
-      - Malid
-      - Stino
-      - Iregge
-      - Yanzu
-      - Josh
-      - Elares
-      - Mobarne
-      - Andon
-      - Ehel
-      - Odann
       - Abaddon
-      - Samuel
-      - Naomi
-      - Olga
-      - Lamar
-      - Drygma
-      - Falastia
-      - Ganglo
-      - Crost
+      - Aelon
+      - Afteryn
+      - Akara
+      - Andon
+      - Antimony
+      - Armo
+      - Bob
+      - Branac
+      - Bushamp
+      - Cobalt
       - Colearias
-      - Emovebaris
+      - Corypheus
+      - Crass
+      - Crost
+      - Damiel
+      - Darik
       - Difosgeno
-      - Evigilo
       - Donesenojax
+      - Dorak
+      - Drygma
+      - Ehel
+      - Elares
+      - Emovebaris
+      - Eran
+      - Eulan
+      - Evigilo
+      - Falastia
+      - Froror
+      - Ganglo
+      - Gorlock
+      - Grisse
+      - Gygax
+      - Hagederd
+      - Hix
+      - Illos
+      - Iregge
+      - Jacobson
+      - Jarl
+      - Jasper
+      - Jeffery
+      - Jorn
+      - Josh
+      - Keenu
+      - Keppa
+      - Krul
+      - Lamar
+      - LLoren
+      - Lygorax
+      - Maldonis
+      - Malid
+      - Matel
+      - Meedin
+      - Minthara
+      - Mobarne
+      - Moraxis
+      - Naomi
+      - Nyx
+      - Odann
+      - Olga
+      - Oxonn
+      - Ozark
+      - Phylox
+      - Pohban
+      - Prak
+      - Prish
+      - Promethean
+      - Quid
+      - Quo
+      - Quol
+      - Riney
+      - Samuel
+      - Sana
+      - Stino
+      - Sunup
+      - Tahnk
+      - Tarrask
+      - Taryn
+      - Terryn
+      - Tholix
+      - Thoraxis
+      - Thyn
+      - Uma
+      - Urdol
+      - Urun
+      - Vipen
+      - Wislow
+      - Worcasp
+      - Wren
+      - Wrex
+      - Xerxes
+      - Yamel
+      - Yanzu
+      - Yuslaw
+      - Zamp
+      - Zesh
       Last:
-      - the Throgler
-      - Kings Pawn
-      - the Destroyer
-      - the Idiot
-      - the Dumb
-      - the Smart
-      - the Wise
-      - the Powerful
-      - the Strong
-      - the Weak
-      - Manslayer
-      - Manhunter
-      - Kings-blade
-      - the Disrespectful
-      - the Assassin
-      - the Hunter
-      - the Banana
-      - Eagle-eye
+      - Bladesong
+      - Blood Blender
       - Bloodsucker
-      - the Nemesis
+      - Bloodtears
+      - Boulder-Breaker
+      - Deathbringer
+      - Eagle-eye
+      - from Deep Dark
+      - from Hell
       - from Nowhere
+      - from the Skies
+      - Hammerhead
+      - Havoc
+      - Human-hater
+      - Icesong
+      - Ironfist
+      - Jaws
+      - Kings Pawn
+      - Kings-blade
+      - Manhunter
+      - Manslayer
+      - Nightfire
+      - No Mercy
       - of The End
       - of The Nether
-      - Human-hater
-      - the Dangerous
-      - No Mercy
-      - the Relentless
-      - the Beast
-      - Speedster
-      - Outragous
-      - from Deep Dark
-      - the Insane
-      - the Hurtful
-      - the Killer
-      - from Hell
-      - Jaws
-      - the Chosen One
-      - the Enlightened
-      - the Great
-      - the Terrible
-      - Havoc
-      - Hammerhead
       - of the Water
-      - the Hopeful
-      - the Dark
-      - the Outcast
-      - the Forgotten
-      - the Joke
-      - who Succeeds
-      - the Rival
+      - Outragous
+      - Speedster
       - Stronghand
-      - from the Skies
-      - Ironfist
-      - the Thief
-      - the Culler
-      - the Predator
-      - Boulder-Breaker
-      - Twig Legs
-      - Blood Blender
-      - the Leader
-      - the Razor
-      - the Calculated
-      - the Besieger
-      - the Guardian of Order
-      - the Promised
-      - the Unknown
-      - the Martyr
-      - the Suffering
       - the Archaic
-      - the Loud
+      - the Assassin
+      - the Banana
+      - the Beast
+      - the Besieger
+      - the Black
+      - the Calculated
       - the Catastrophic
+      - the Chosen One
+      - the Culler
+      - the Dangerous
+      - the Dark
+      - the Destroyer
+      - the Disrespectful
+      - the Dumb
+      - the Enlightened
+      - the Forgotten
+      - the Great
+      - the Greedful
+      - the Guardian of Order
+      - the Hopeful
+      - the Hunter
+      - the Hurtful
+      - the Idiot
+      - the Insane
       - the Intrepid
+      - the Joke
+      - the Killer
+      - the Leader
+      - the Loud
+      - the Martyr
+      - the Nemesis
       - the Nullifier
+      - the Outcast
+      - the Powerful
+      - the Predator
+      - the Promised
+      - the Razor
+      - the Relentless
+      - the Rival
+      - the Smart
+      - the Strong
+      - the Suffering
+      - the Terrible
+      - the Thief
+      - the Throgler
+      - the Unknown
+      - the Unseen
+      - the Weak
+      - the Wise
+      - the World Ender
+      - Twig Legs
+      - Who Cries
+      - Who Hurts
+      - Who Sees
+      - Who Succeeds
+      - Who Walks
     Quotes:
       Digging:
       - Placing blocks won't help!
