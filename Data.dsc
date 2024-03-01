@@ -146,16 +146,25 @@ AllEnchants:
       - Branac
       - Bushamp
       - Cobalt
+      - Colearias
       - Corypheus
       - Crass
+      - Crost
       - Damiel
       - Darik
+      - Difosgeno
+      - Donesenojax
       - Dorak
+      - Drygma
       - Ehel
       - Elares
+      - Emovebaris
       - Eran
       - Eulan
+      - Evigilo
+      - Falastia
       - Froror
+      - Ganglo
       - Gorlock
       - Grisse
       - Gygax
@@ -172,6 +181,7 @@ AllEnchants:
       - Keenu
       - Keppa
       - Krul
+      - Lamar
       - LLoren
       - Lygorax
       - Maldonis
@@ -181,8 +191,10 @@ AllEnchants:
       - Minthara
       - Mobarne
       - Moraxis
+      - Naomi
       - Nyx
       - Odann
+      - Olga
       - Oxonn
       - Ozark
       - Phylox
@@ -194,6 +206,7 @@ AllEnchants:
       - Quo
       - Quol
       - Riney
+      - Samuel
       - Sana
       - Stino
       - Sunup
@@ -248,10 +261,14 @@ AllEnchants:
       - Outragous
       - Speedster
       - Stronghand
+      - the Archaic
       - the Assassin
       - the Banana
       - the Beast
+      - the Besieger
       - the Black
+      - the Calculated
+      - the Catastrophic
       - the Chosen One
       - the Culler
       - the Dangerous
@@ -263,25 +280,34 @@ AllEnchants:
       - the Forgotten
       - the Great
       - the Greedful
+      - the Guardian of Order
       - the Hopeful
       - the Hunter
       - the Hurtful
       - the Idiot
       - the Insane
+      - the Intrepid
       - the Joke
       - the Killer
       - the Leader
+      - the Loud
+      - the Martyr
       - the Nemesis
+      - the Nullifier
       - the Outcast
       - the Powerful
       - the Predator
+      - the Promised
+      - the Razor
       - the Relentless
       - the Rival
       - the Smart
       - the Strong
+      - the Suffering
       - the Terrible
       - the Thief
       - the Throgler
+      - the Unknown
       - the Unseen
       - the Weak
       - the Wise

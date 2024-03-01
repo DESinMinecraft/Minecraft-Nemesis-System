@@ -1707,7 +1707,7 @@ PlayerHighUpAssignment:
            - if <util.random_chance[80]>:
                 - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.HighUp].random>"
            - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:15
-           - else if <util.random_chance[80]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 3 && !<player.location.find_path[<npc.location>].is_truthy>:
+        - else if <util.random_chance[80]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 3 && !<player.location.find_path[<npc.location>].is_truthy>:
 #           - if <npc.location.find_spawnable_blocks_within[8].size> > 0:
                 - define loc <npc.eye_location.find_spawnable_blocks_within[5].random>
                 - while !<player.eye_location.line_of_sight[<[loc]>]>:
@@ -1720,12 +1720,13 @@ PlayerHighUpAssignment:
                     - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.HighUp].random>"
                 - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:15
                 - stop
-           - else if <player.location.y.sub[<npc.location.y>]> == 0 && <player.gamemode> == Survival && <util.random_chance[80]> && !<player.location.find_path[<npc.location>].is_truthy> && <player.location.line_of_sight[<npc.location>]>:
+        - else if ( <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1 ) && <player.gamemode> == Survival && <util.random_chance[80]> && !<player.location.find_path[<npc.location>].is_truthy> && <player.location.line_of_sight[<npc.eye_location>]>:
                 - look <npc> <player.eye_location.add[0,1,0]> duration:0.5s
+                - adjust <npc> velocity:0,0.42,0
                 - wait 2t
                 - look <npc> <player.eye_location.add[0,1,0]> duration:0.5s
                 #velocity:<player.location.direction.vector.add[0.0,0.5,0.0]>
-                - adjust <npc> velocity:<npc.location.direction.vector.add[0.0,0.45,0.0]>
+                - adjust <npc> velocity:<npc.location.direction.vector.add[0.0,0.5,0.0]>
                 - wait 13t
                 - ~walk <npc> <player.location>
         on damaged:
@@ -1755,7 +1756,7 @@ PlaceBlockAssignment:
            - else:
                - modifyblock <npc.location> dirt
                - adjust <npc.location> coreprotect_log_placement:[user=<npc.name>;material=dirt]
-        - else if <util.random_chance[66]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 6 && <npc.eye_location.above> matches air && !<player.location.find_path[<npc.location>].is_truthy> && <npc.location.find_blocks[!air|water|lava].within[1].is_truthy>:
+        - else if <util.random_chance[66]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 5 && <npc.eye_location.above> matches air && !<player.location.find_path[<npc.location>].is_truthy> && <npc.location.find_blocks[!air|water|lava].within[1].is_truthy>:
            - adjust <npc> velocity:0,0.53,0
            - wait 1t
            - if <npc.age.exists> && <npc.is_baby>:
@@ -1901,7 +1902,7 @@ OverwhelmingWill:
            - cast slow <npc> remove
            - foreach <npc.location.find_entities.within[3.5]> as:entity:
               - if <[entity]> != <npc>:
-                 - hurt 4 <[entity]> source:<npc> cause:CUSTOM
+                 - hurt 4 <[entity]> source:<npc> cause:ENTITYATTACK
                  - push <[entity]> origin:<[entity]> speed:-1 duration:2t
            - if <npc.has_flag[Stunned]>:
               - flag <npc> Stunned:!
