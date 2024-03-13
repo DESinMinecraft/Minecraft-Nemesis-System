@@ -18,10 +18,10 @@ THE DYNAMIC ENEMY SYSTEM IS CURRENTLY IN ALPHA! THERE ARE BOUND TO BE BUGS! IT S
 
 ## Server Softwares
 
-You will need a Paper/Purpur server to be able to run the Dynamic Enemy System. Paper is very optimized for performance and has a helpful API for plugin developers to use. Most servers on Minecraft use Paper, although Purpur is catching up fairly fast in terms of popularity. Almost every plugin that works on Paper will work on Purpur. Purpur has everything Paper has, as well as an INSANE amount of customizable options. If you want "drakes" and "caragors", Purpur is the way to go. It also has slightly better performance than Paper due to including Pufferfish, another server implementation in it.
+You will need a Paper/Purpur server to be able to run the Dynamic Enemy System. Paper is very optimized for performance and has a helpful API for plugin developers to use. Most servers on Minecraft use Paper, although Purpur is catching up fairly fast in terms of popularity. Almost every plugin that works on Paper will work on Purpur, although Paper is more stable. Purpur has everything Paper has, as well as an INSANE amount of customizable options (by default, everything that is customizable is off for stability reasons and to allow you the option to change what YOU want). If you want "drakes" and "caragors", Purpur is the way to go. It also has slightly better performance than Paper due to including Pufferfish, another server implementation in it.
 
 Never setup a server? It's easy! Click on https://docs.papermc.io/paper/getting-started or watch a video tutorial like https://www.youtube.com/watch?v=S1ErOaywc2A
-You can also use free server hosts like Server.pro or Aternos to be able to easily play with your friends
+You can also use free server hosts like ~~Server.pro~~ or Aternos to be able to easily play with your friends
 
 You can download **Paper** at: https://papermc.io/software/paper
 
@@ -172,6 +172,19 @@ The abilities are:
       - BadOmen (Gives Bad Omen to whoever kills them)
       - GolemToss (Tosses you up like an Iron Golem when they hit you)
       - DashStrike (Quickly launches towards you from a long distance, and delievers multi-hit damage. Unstunable when doing this ability, but can still take fall damage)
+
+### Shaming
+
+If a Nemesis has 18% HP or lower, with your Ring/Amethyst Shard, left click them to shame them. It will show up on your sidebar when battling them when they can finally be shamed. The Nemesis will lose abilities and despawn. The amount of abilities they lose is random. The mechanic is still buggy and the Nemesis may not properly lose some of their abilities. Expect it to not work all the time.
+
+Some reasons why you may want to shame instead of killing a Nemesis:
+
+- Get rid of the ExplodeOnDie ability so when you kill them, the area around you isn't destroyed
+
+- Get rid of the CheatsDeath ability so when you kill them next time, they stay dead.
+
+- Farm Nemeses for gear. If a Nemesis maxed out on the amount of abilities they can learn and the abilities don't apply to the weapons that they will drop when killed (e.g. the Totem ability will not get equipped on their weapon, but PoisonDamage will, allowing you to do PoisonDamage on enemies if you get their weapon), shame them and let them kill you again to learn better abilities that can get equipped on weapons. You may get very overpowered weapons like this with trial and error.
+
 
 # Other Info
 
