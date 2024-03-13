@@ -132,11 +132,10 @@ OrcGruntSpearThrow:
 #        - if <context.target.is_player> && <context.entity.has_flag[Convert]>:
 #            - determine passively cancelled
         - if <context.entity.item_in_hand> matches trident:
-            - while <context.entity.location.distance[<context.target.location>]> >= 5 && <context.entity.location.distance[<context.target.location>]> <= 27:
+            - while <context.entity.location.distance[<context.target.location>]> >= 5 && <context.entity.location.distance[<context.target.location>]> <= 27 && <context.target.exists>:
                 - wait 1s
                 - if <context.entity.has_flag[Convert]> && <context.target.is_player>:
                     - determine cancelled
-                    - stop
                 - if <util.random_chance[15]> && <context.entity.can_see[<context.target>]>:
                     - shoot trident origin:<context.entity.eye_location> shooter:<context.entity> destination:<context.target.eye_location> speed:3 spread:5
                 - else if <[loop_index]> <= 100:
@@ -289,6 +288,35 @@ PlayerStunAttack:
 #        - cast jump <context.entity> duration:8s amplifier:128
 
 
+PlayerShameNemesis:
+    debug: false
+    type: world
+    events:
+        on player damages npc_flagged:Stun.limit with:convertitem|AMETHYST_SHARD:
+        - ratelimit <player> 2s
+        - if <npc.health_percentage> <= 18:
+            - narrate "<&b>You shamed <&4><npc.name><&b>!"
+            - define Amount <util.random.int[1].to[3]>
+            - repeat <[amount]>:
+                - foreach <npc.list_flags> as:flags:
+                    - if <[flags]> !matches Dagger|Stealth|Stun|Blocking|DashDamage|Stunned:
+                        - flag <npc> <[flags]>:!
+                        - foreach <npc.scripts.parse[name]> as:assignments:
+                            - if <[flags]> matches <[assignments]>:
+                                - assignment remove script:<[assignments]>
+                        - narrate "<&4><npc.name> lost their <&e><[flags]> <&4>ability!" targets:<player>
+                        - playsound sound:ENTITY_GHAST_HURT <npc.location> pitch:0.5
+                        - foreach stop
+            - flag <npc> Stun.Spam:0
+            - flag <npc> Dagger.spam:0
+            - flag <npc> Stealth.spam:0
+            - playsound sound:ITEM_TOTEM_USE <npc.location> pitch:0.5
+            - despawn <npc>
+            - wait 1t
+            - sidebar remove
+        - else:
+            - narrate "<&6>Unable to shame <&4><npc.name><&6>, their health is above 18%!"
+
 StunStopTeleport:
     debug: false
     type: world
@@ -439,8 +467,10 @@ BackStabAttack:
     events:
         on player damages husk||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||PIGLIN_BRUTE||NPC||DROWNED|ZOMBIE_VILLAGER:
         - if <context.entity.is_npc>:
-            - sidebar set title:<&e><&sp><context.entity.name><&sq>s<&sp>Abilities "values:<&a>HP: <&a><&o><npc.health.round>/<npc.health_max.round>|<&b><&n>Abilities:" players:<player>
-            - sidebar add " " players:<player>
+            - if <npc.health_percentage> <= 18:
+                - sidebar set title:<&e><&sp><context.entity.name><&sq>s<&sp>Abilities "values:<&a>HP: <&a><&o><npc.health.round>/<npc.health_max.round><&sp><&3><&n><&l>CAN<&sp>BE<&sp>SHAMED|<&b><&n>Abilities:" players:<player>
+            - else:
+                - sidebar set title:<&e><&sp><context.entity.name><&sq>s<&sp>Abilities "values:<&a>HP: <&a><&o><npc.health.round>/<npc.health_max.round>|<&b><&n>Abilities:" players:<player>
             - foreach <npc.list_flags> as:flags:
                 - sidebar add "values:<&4><&l><[flags]>" players:<player>
             - foreach <npc.scripts> as:assignments:
@@ -459,6 +489,9 @@ BackStabAttack:
             - if <context.entity.eye_location.facing[<player>]>:
                 - if !<context.entity.has_flag[Stunned]>:
                     - narrate "Stun an <&a>axe-wielding/shield-bearing enemy <&c><&l>(right click) <&f>or <&c><&l>attack from behind <&f>to damage them!"
+                    - flag <player> DamageAxeShieldFail:++ expire:3s
+                    - if <player.flag[DamageAxeShieldFail]> >= 3:
+                        - title "title:<&4>Right click them to stun." fade_in:0.7s fade_out:0.7s stay:1s
                     - if <util.random_chance[25]>:
                         - hurt 2 <player>
                     - if <context.entity.item_in_offhand> matches shield:
@@ -508,6 +541,10 @@ NemesisMake:
         - execute as_server "sentinel attackrate <[attackrate]>"
         - define speed <util.random.decimal[1].to[1.45]>
         - execute as_server "sentinel speed <[speed]>"
+
+        - define accuracy <util.random.decimal[0].to[0.20]>
+        - execute as_server "sentinel accuracy <[accuracy]>"
+
         #- execute as_server "sentinel addtarget NPC:Spawn_Protector"
         - execute as_server "sentinel chaseranged"
         - execute as_server "sentinel addtarget sbteam:blue"
@@ -564,10 +601,10 @@ NemesisMake:
                     - flag <entry[NCreate].created_npc> Dagger.Limit:<entry[NCreate].created_npc.flag[Dagger.Limit].div[2].round_down>
                     - flag <entry[NCreate].created_npc> Stealth.Limit:<entry[NCreate].created_npc.flag[Stealth.Limit].div[2].round_down>
 
-                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss:
+                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss || <[Ability]> matches ShieldBreaker:
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with_flag[<[Ability]>]>
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with[lore=<[Ability]> on enemies]>
-                    - flag server <entry[NCreate].created_npc> Hand:<entry[NCreate].created_npc.item_in_hand>
+                    - flag server <entry[NCreate].created_npc>Hand:<entry[NCreate].created_npc.item_in_hand>
                 - else if <[Ability]> matches ReinforcementMelee:
                     - assignment add ReinforcementMelee to:<entry[NCreate].created_npc>
                 - else if <[Ability]> matches ReinforcementRanged:
@@ -615,6 +652,8 @@ NemesisBuff:
         - assignment add PlaceBlockAssignment to:<context.damager>
         - sidebar remove
         - flag <player> combo:0
+        - flag <player> Might:0
+
         - if <context.damager.item_in_hand> matches *_sword||*_axe && <util.random_chance[50]> && <npc.item_in_hand.enchantment_map.is_truthy.not>:
             - define modifier <util.random.int[1].to[5]>
             - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[NormalMelee].random>
@@ -685,10 +724,10 @@ NemesisBuff:
                     - flag <context.damager> Stun.Limit:<context.damager.flag[Stun.Limit].div[2].round_down>
                     - flag <context.damager> Dagger.Limit:<context.damager.flag[Dagger.Limit].div[2].round_down>
                     - flag <context.damager> Stealth.Limit:<context.damager.flag[Stealth.Limit].div[2].round_down>
-                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss:
+                - else if <[Ability]> matches BlindDamage || <[Ability]> matches HeavyHitter || <[Ability]> matches LifeSteal || <[Ability]> matches MiningFatigue || <[Ability]> matches GolemToss || <[Ability]> matches ShieldBreaker:
                     - equip <context.damager> hand:<context.damager.item_in_hand.with_flag[<[Ability]>]>
                     - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
-                    - flag server <context.damager> Hand:<context.damager.item_in_hand>
+                    - flag server <context.damager>Hand:<context.damager.item_in_hand>
                 - else if <[Ability]> matches HighJumper:
                     - cast <npc> JUMP amplifier:1 duration:infinite
                 - else if <[Ability]> matches FastMiner:
@@ -732,7 +771,7 @@ NemesisBuff:
                 - flag <context.damager> <[Ability]>
                 - equip <context.damager> hand:<context.damager.item_in_hand.with_flag[<[Ability]>]>
                 - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
-                - flag server <context.damager> Hand:<context.damager.item_in_hand>
+                - flag server <context.damager>Hand:<context.damager.item_in_hand>
                 - narrate "<&4><context.damager.name> Learned <&e><[Ability]>!"
                 - if <util.random_chance[30]> && <context.damager.has_flag[PoisonDamage]> && <context.damager.list_flags.size> < 10:
                     - assignment add PoisonBombAssignment to:<context.damager>
@@ -761,7 +800,7 @@ PlayerCombo:
             - if <context.entity.eye_location.facing[<player>]> && <player.location.distance[<context.entity.location>]> <= 3.2:
                 - if !<context.entity.has_flag[Stunned]>:
                     - determine cancelled
-        - if <context.entity.is_npc> && <context.entity.has_trait[Sentinel]> && <context.entity.has_flag[Stealth.Limit]>:
+        - if <context.entity.is_npc> && <context.entity.has_trait[Sentinel]> && <context.entity.has_flag[Stealth.Limit]> && <context.entity.eye_location.facing[<player>].not> && <player.location.distance[<context.entity.location>]> <= 3.2 && <player.is_sneaking>:
             - flag <context.entity> Stealth.Spam:++ expire:3m
             - if <context.entity.flag[Stealth.Spam]> > <context.entity.flag[Stealth.Limit]> && <context.entity.eye_location.facing[<player>].not> && <player.location.distance[<context.entity.location>]> <= 3.2 && <player.is_sneaking>:
                 - narrate "<&6>Stealth attack failed! <context.entity.name> adapted to your stealth attacks! Use other <&9>diverse attacks!"
@@ -939,6 +978,15 @@ PlayerElementAttacks:
         - define yaw <util.random.decimal[-65].to[65]>
         - define pitch <util.random.decimal[-36].to[36]>
         - rotate <context.entity> yaw:<[yaw]> pitch:<[pitch]> duration:0.3s frequency:10t
+        on player damages player with:item_flagged:ShieldBreaker:
+        - if <context.damage_type_map.values.get[3]> <= 0.1 && <context.damage_type_map.values.get[3].is_truthy>:
+            - define ShieldDamage <util.random.int[8].to[50]>
+            - if <context.entity.item_in_hand> matches shield:
+                - inventory adjust slot:hand durability:<context.entity.item_in_hand.durability.add[<[ShieldDamage]>]>
+            - else:
+                - inventory adjust slot:offhand durability:<context.entity.item_in_offhand.durability.add[<[ShieldDamage]>]>
+            - ratelimit <context.entity> 2s
+            - narrate "<&c><context.damager.name> is doing massive damage to your shield!" targets:<context.damager>|<context.entity>
         after player damages entity with:item_flagged:GolemToss:
         - adjust <context.entity> velocity:0,1.0,0
         - playsound sound:ENTITY_IRON_GOLEM_ATTACK <context.entity.location> pitch:1
@@ -1209,13 +1257,27 @@ NemesisFireExtinguish:
     debug: false
     type: world
     events:
-        after NPC_flagged:!ImmuneFire damaged by FIRE|FIRE_TICK|LAVA:
+        after NPC_flagged:!ImmuneFire damaged by FIRE|FIRE_TICK|LAVA chance:80:
         #- ratelimit <npc> 8s
-        - if <npc.health_percentage> <= 78 && <util.random_chance[80]>:
+        - if <npc.health_percentage> <= 78:
             - foreach <npc.location.find_blocks[water].within[16]> as:b:
                 - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy>:
                     - ~walk <npc> <[b]>
                     - stop
+            - foreach <npc.location.find_blocks[!air|water|lava].within[16]> as:b:
+                - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy> && <[b].above> matches air:
+                    - ~walk <npc> <[b]>
+                    - stop
+
+NemesisFreezingInSnow:
+    debug: false
+    type: world
+    events:
+        after NPC_flagged:!Stunned damaged by FREEZE chance:90:
+        - if <npc.eye_location> matches powder_snow:
+            - ~break <npc.eye_location>
+        - if <npc.location> matches powder_snow:
+            - ~break <npc.location>
 
 NemesisRunAwayCreeper:
     debug: false
@@ -1467,6 +1529,9 @@ ConvertItem:
     lore:
      - <&9>Right click monsters with this
      - <&9>To convert them to your side
+     - <&1>Left click Nemeses when they have
+     - <&1>less than 18% HP to shame them
+     - <&1>Shamed Nemeses lose abilities
 
 TrapItem:
     type: item
@@ -1585,20 +1650,22 @@ PoisonBombAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:20
+        - trigger name:proximity state:true radius:20 cooldown:12s
         on move proximity:
         - ratelimit <player> 12s
         - determine passively cancelled
         - attack
         on attack:
         - determine passively cancelled
-        - if <server.flag[<npc>target].location.line_of_sight[<npc.location>]> && <player.gamemode> == Survival:
+        - if <server.flag[<npc>target].location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
             - define Poison <server.flag[<npc>target].location>
             - spawn AREA_EFFECT_CLOUD <[Poison]> save:ColorCloud
             - adjust <entry[ColorCloud].spawned_entity> particle_color:green
             - wait 3s
             - repeat 26:
-                - cast poison <[Poison].find_players_within[3]> amplifier:0 duration:8s
+                - foreach <[Poison].find.living_entities.within[3]> as:entity:
+                    - if <[entity]> != <npc> && <[entity].exists>:
+                        - cast POISON <[entity]> amplifier:0 duration:8s
                 - wait 1s
         on damaged:
         - trigger name:proximity state:true radius:20
@@ -1609,20 +1676,22 @@ WitherBombAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:20
+        - trigger name:proximity state:true radius:20 cooldown:12s
         on move proximity:
         - ratelimit <player> 12s
         - determine passively cancelled
         - attack
         on attack:
         - determine passively cancelled
-        - if <server.flag[<npc>target].location.line_of_sight[<npc.location>]> && <player.gamemode> == Survival:
+        - if <server.flag[<npc>target].location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
             - define Wither <server.flag[<npc>target].location>
             - spawn AREA_EFFECT_CLOUD <[Wither]> save:ColorCloud
             - adjust <entry[ColorCloud].spawned_entity> particle_color:black
             - wait 3s
             - repeat 26:
-                - cast wither <[Wither].find_players_within[3]> amplifier:0 duration:8s
+                - foreach <[Wither].find.living_entities.within[3]> as:entity:
+                    - if <[entity]> != <npc> && <[entity].exists>:
+                        - cast WITHER <[entity]> amplifier:0 duration:8s
                 - wait 1s
         on damaged:
         - trigger name:proximity state:true radius:20
@@ -1632,20 +1701,22 @@ HungerBombAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:20
+        - trigger name:proximity state:true radius:20 cooldown:12s
         on move proximity:
         - ratelimit <player> 12s
         - determine passively cancelled
         - attack
         on attack:
         - determine passively cancelled
-        - if <server.flag[<npc>target].location.line_of_sight[<npc.location>]> && <player.gamemode> == Survival:
+        - if <server.flag[<npc>target].location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
             - define Hunger <server.flag[<npc>target].location>
             - spawn AREA_EFFECT_CLOUD <[Hunger]> save:ColorCloud
             - adjust <entry[ColorCloud].spawned_entity> particle_color:lime
             - wait 3s
             - repeat 26:
-                - cast hunger <[Hunger].find_players_within[3]> amplifier:0 duration:8s
+                - foreach <[Hunger].find.living_entities.within[3]> as:entity:
+                    - if <[entity]> != <npc> && <[entity].exists>:
+                        - cast HUNGER <[entity]> amplifier:0 duration:8s
                 - wait 1s
         on damaged:
         - trigger name:proximity state:true radius:20
@@ -1658,7 +1729,7 @@ BreakBlockAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:8.5
+        - trigger name:proximity state:true radius:8.5 cooldown:4s
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 4s
@@ -1695,7 +1766,7 @@ PlayerHighUpAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:16
+        - trigger name:proximity state:true radius:16 cooldown:8s
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 8s
@@ -1706,7 +1777,7 @@ PlayerHighUpAssignment:
            - wait 0.4s
            - if <util.random_chance[80]>:
                 - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.HighUp].random>"
-           - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:15
+           - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:<npc.sentinel.accuracy.mul[100]>
         - else if <util.random_chance[80]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 3 && !<player.location.find_path[<npc.location>].is_truthy>:
 #           - if <npc.location.find_spawnable_blocks_within[8].size> > 0:
                 - define loc <npc.eye_location.find_spawnable_blocks_within[5].random>
@@ -1718,7 +1789,7 @@ PlayerHighUpAssignment:
                 #- look <npc> <player.location> duration:1s
                 - if <util.random_chance[80]>:
                     - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.HighUp].random>"
-                - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:15
+                - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:<npc.sentinel.accuracy.mul[100]>
                 - stop
         - else if ( <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1 ) && <player.gamemode> == Survival && <util.random_chance[80]> && !<player.location.find_path[<npc.location>].is_truthy> && <player.location.line_of_sight[<npc.eye_location>]>:
                 - look <npc> <player.eye_location.add[0,1,0]> duration:0.5s
@@ -1738,10 +1809,13 @@ PlaceBlockAssignment:
     debug: false
     actions:
         on spawn:
-        - trigger name:proximity state:true radius:11
+        - trigger name:proximity state:true radius:11 cooldown:2s
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 2s
+        - if <util.random_chance[25]> && <player.gamemode> == Survival && <npc.has_flag[ThrowEnderPearl]> && ( <player.location.y.sub[<npc.location.y>]> <= -3 || <player.location.y.sub[<npc.location.y>]> >= 3 ) && !<player.location.find_path[<npc.location>].is_truthy> && <npc.can_see[<player>]>:
+            - look <npc> <server.flag[<npc>target].eye_location> duration:0.2s
+            - ~shoot ender_pearl speed:1 spread:<npc.sentinel.accuracy.mul[50]> origin:<npc.eye_location> shooter:<npc>
         - if <util.random_chance[99]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> <= -2 && !<player.location.find_path[<npc.location>].is_truthy> && <npc.location.below> !matches air|water|lava:
            - ~break <npc.location.below>
         - if <player.gamemode> == Survival && <npc.eye_location.center.find_blocks[!air].within[1.1].size> == 4:
@@ -1981,7 +2055,7 @@ LassoTarget:
             - wait 0.5s
             - playsound sound:ENTITY_IRON_GOLEM_ATTACK <npc.location> pitch:0.8
             - look <npc> <server.flag[<npc>target].eye_location> duration:0.2s
-            - shoot nemesislassoentity speed:2.2 spread:7 destination:<server.flag[<npc>target].eye_location> save:grapple
+            - shoot nemesislassoentity speed:2.2 spread:<npc.sentinel.accuracy.mul[50]> destination:<server.flag[<npc>target].eye_location> save:grapple
             - narrate "<&c><npc.name> threw their lasso!"
             - spawn slime[size=1;no_damage_duration=100;has_ai=false] <player.location.forward[15]> save:rope
             - while <entry[rope].spawned_entity.exists> && <entry[rope].spawned_entity.is_spawned>:
@@ -2029,7 +2103,7 @@ ThrowEnderPearl:
                 - look <npc> pitch:<[pitch]> yaw:<[yaw]> duration:0.3s
                 - wait 2t
                 - playsound sound:ENTITY_SNOW_GOLEM_SHOOT <npc.location> pitch:0.1
-                - shoot ender_pearl speed:1 spread:8 origin:<npc.eye_location> shooter:<npc>
+                - shoot ender_pearl speed:1 spread:<npc.sentinel.accuracy.mul[50]> origin:<npc.eye_location> shooter:<npc>
                 - wait 0.4s
         on damaged:
         - trigger name:proximity state:true radius:27
@@ -2078,7 +2152,7 @@ ThrowingDaggers:
             - if <util.random_chance[33]>:
                 - cast slow duration:0.3s amplifier:5 <npc>
             - repeat <[Amount]>:
-                 - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<server.flag[<npc>target].eye_location> speed:1 spread:15
+                 - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<server.flag[<npc>target].eye_location> speed:1 spread:<npc.sentinel.accuracy.mul[100]>
                  - playsound sound:ITEM_TRIDENT_THROW <npc.location> pitch:2
                  - wait 0.15s
             - narrate "<&c><npc.name> shot some daggers!"
