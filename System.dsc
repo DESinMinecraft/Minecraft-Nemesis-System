@@ -523,7 +523,6 @@ NemesisMake:
         - equip <entry[NCreate].created_npc> boots:<context.damager.equipment.get[1]>
 
 
-
         - equip <entry[NCreate].created_npc> hand:<context.damager.item_in_hand>
         - equip <entry[NCreate].created_npc> offhand:<context.damager.item_in_offhand>
         - execute as_server "npc sel <entry[NCreate].created_npc.id>"
@@ -557,6 +556,12 @@ NemesisMake:
             - execute as_server "sentinel addavoid PLAYER"
             - execute as_server "sentinel avoidrange <[avoidrange]>"
             - execute as_server "sentinel runaway"
+
+
+        - if <context.damager.entity_type> !matches DROWNED && <util.random_chance[75]>:
+            - execute as_server "citizens:npc pathopt --avoid-water true"
+
+        - execute as_server "waypoints opendoors"
 
         - flag <entry[NCreate].created_npc> Stun.Limit:<util.random.int[2].to[10]>
         - flag <entry[NCreate].created_npc> Dagger.Limit:<util.random.int[2].to[10]>
@@ -605,6 +610,8 @@ NemesisMake:
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with_flag[<[Ability]>]>
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <entry[NCreate].created_npc>Hand:<entry[NCreate].created_npc.item_in_hand>
+                - else if <[Ability]> matches NoFallDamage:
+                    - execute as_server "citizens:npc pathopt --falling-distance 30"
                 - else if <[Ability]> matches ReinforcementMelee:
                     - assignment add ReinforcementMelee to:<entry[NCreate].created_npc>
                 - else if <[Ability]> matches ReinforcementRanged:
@@ -728,6 +735,8 @@ NemesisBuff:
                     - equip <context.damager> hand:<context.damager.item_in_hand.with_flag[<[Ability]>]>
                     - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <context.damager>Hand:<context.damager.item_in_hand>
+                - else if <[Ability]> matches NoFallDamage:
+                    - execute as_server "citizens:npc pathopt --falling-distance 30"
                 - else if <[Ability]> matches HighJumper:
                     - cast <npc> JUMP amplifier:1 duration:infinite
                 - else if <[Ability]> matches FastMiner:
@@ -1226,11 +1235,31 @@ NemesisFireImmune:
     debug: false
     type: world
     events:
-        on NPC_flagged:ImmuneFire damaged by FIRE||FIRE_TICK:
+        on NPC_flagged:ImmuneFire damaged by FIRE|FIRE_TICK:
         - determine passively cancelled
         - foreach <npc.location.find_players_within[15]> as:p:
             - ratelimit <[p]> 15s
             - narrate "<&c><npc.name> is immune to fire damage!" targets:<[p]>
+
+NemesisPoisonImmune:
+    debug: false
+    type: world
+    events:
+        on NPC_flagged:ImmunePoison damaged by POISON:
+        - determine passively cancelled
+        - foreach <npc.location.find_players_within[15]> as:p:
+            - ratelimit <[p]> 15s
+            - narrate "<&c><npc.name> is immune to poison damage!" targets:<[p]>
+
+NemesisWitherImmune:
+    debug: false
+    type: world
+    events:
+        on NPC_flagged:ImmuneWither damaged by WITHER:
+        - determine passively cancelled
+        - foreach <npc.location.find_players_within[15]> as:p:
+            - ratelimit <[p]> 15s
+            - narrate "<&c><npc.name> is immune to wither damage!" targets:<[p]>
 
 NemesisDrowningImmune:
     debug: false
@@ -1264,7 +1293,7 @@ NemesisFireExtinguish:
                 - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy>:
                     - ~walk <npc> <[b]>
                     - stop
-            - foreach <npc.location.find_blocks[!air|water|lava].within[16]> as:b:
+            - foreach <npc.location.find_blocks[!air|water|lava].within[8]> as:b:
                 - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy> && <[b].above> matches air:
                     - ~walk <npc> <[b]>
                     - stop
