@@ -130,6 +130,8 @@ The abilities are:
 
       - ImmuneFire (Immune to fire)
       - ImmuneDrowning (Immune to drowning)
+      - ImmunePoison (Immune to poison)
+      - ImmuneWither (Immune to wither damage)
       - NoFallDamage (Immune to fall damage)
       - Totem (Holds a totem in their offhand)
       - Sneaky (Their nameplate is hidden, making it harder to track them. Expect surprise attacks)
