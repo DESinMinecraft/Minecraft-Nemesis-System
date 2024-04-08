@@ -97,6 +97,8 @@ AllEnchants:
       Passive:
       - ImmuneFire
       - ImmuneDrowning
+      - ImmunePoison
+      - ImmuneWither
       - NoFallDamage
       - Totem
       - Sneaky
