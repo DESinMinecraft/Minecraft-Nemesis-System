@@ -1,5 +1,7 @@
 ![Snag_1f8ab195](https://github.com/DESinMinecraft/Minecraft-Nemesis-System/assets/158676456/3e73b15c-2346-497d-801c-4f7ff9fa847f)
 
+In the following few weeks (probably sooner), 1.20.6 support will be added. And Ologs are highly likely to come too in 1.21 thanks to new developer tools :O
+
 # About the Project
 Welcome to the Github Minecraft Nemesis System (also called **Dynamic Enemy System**) repository! This was made by an individual programmer highly passionate about the Nemesis System in the Shadow of Mordor/Shadow of War games. I studied it a lot by playing the games, watching YouTube videos, and searching up wikis online. If you don't know what the Nemesis System is, it is a system that randomly generates enemies with unique names, weapons, armor, classes, abilities, fighting styles, personalities, physical characteristics, and voices. The more a Nemesis kills you or other Nemeses, the stronger that Nemesis will get, rising through the ranks of society. The Nemesis will remember you from previous encounters. 
 
@@ -30,7 +32,7 @@ Purpur documentation: https://purpurmc.org/docs/purpur/configuration/
 
 If you choose Purpur and you want drakes, scroll down to phantoms (or type ctrl + f) and enable mounting and controlling them. You will need another plugin to ride them (will be listed).
 
-Currently (2/3/2024), the Dynamic Enemy System supports 1.20.4. 1.20.5 should be the final minor version for 1.20, and eventually 1.20.4 support will be dropped for 1.20.5. Previous major/minor versions (e.g. 1.19, 1.18.2) *may* work, but will NOT be supported by me. Future major versions will be supported. The Dynamic Enemy System will probably just work out of the box on these newer versions thanks to Denizen's backwards compatibility. Otherwise, very little code maintenance will be needed by me.
+Currently (4/29/2024), the Dynamic Enemy System supports 1.20.4. 1.20.6 should be the final minor version for 1.20, and eventually 1.20.4 support will be dropped for 1.20.6. Previous major/minor versions (e.g. 1.19, 1.18.2) *may* work, but will NOT be supported by me. Future major versions will be supported. The Dynamic Enemy System will probably just work out of the box on these newer versions thanks to Denizen's backwards compatibility. Otherwise, very little code maintenance will be needed by me.
 
 ## Server Plugins
 
