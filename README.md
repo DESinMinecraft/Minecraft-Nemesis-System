@@ -1,7 +1,5 @@
 ![Snag_1f8ab195](https://github.com/DESinMinecraft/Minecraft-Nemesis-System/assets/158676456/3e73b15c-2346-497d-801c-4f7ff9fa847f)
 
-In the following few weeks (probably sooner), 1.20.6 support will be added. And Ologs are highly likely to come too in 1.21 thanks to new developer tools 😮
-
 # About the Project
 Welcome to the Github Minecraft Nemesis System (also called **Dynamic Enemy System**) repository! This was made by an individual programmer highly passionate about the Nemesis System in the Shadow of Mordor/Shadow of War games. I studied it a lot by playing the games, watching YouTube videos, and searching up wikis online. If you don't know what the Nemesis System is, it is a system that randomly generates enemies with unique names, weapons, armor, classes, abilities, fighting styles, personalities, physical characteristics, and voices. The more a Nemesis kills you or other Nemeses, the stronger that Nemesis will get, rising through the ranks of society. The Nemesis will remember you from previous encounters. 
 
@@ -41,10 +39,22 @@ Currently (4/29/2024), the Dynamic Enemy System supports 1.20.4. 1.20.6 should b
 These plugins are REQUIRED for the Dynamic Enemy System to work. Upload these files to the plugins folder of your server. You can download them here:
 
 **Denizen** (what the Dynamic Enemy System runs on): https://ci.citizensnpcs.co/job/Denizen/
+**Denizen Developer builds for newer, not properly tested Minecraft versions:** https://ci.citizensnpcs.co/job/Denizen_Developmental/
+
+LAST DENIZEN BUILD FOR 1.20.4: https://ci.citizensnpcs.co/job/Denizen/1804/
+
+
 
 **Citizens** (NPCs, which is what the Nemeses are): https://ci.citizensnpcs.co/job/Citizens2/
 
+LAST CITIZENS BUILD FOR 1.20.4: https://ci.citizensnpcs.co/job/Citizens2/3382/
+
+
+
 **Sentinel** (NPC combat and AI): https://ci.citizensnpcs.co/job/Sentinel/
+
+
+
 
 ### Optional (but recommended)
 
@@ -127,7 +137,7 @@ You, the player, have the following abilities:
 
 # Enemy Abilities
 
-There are over 40 abilities a Nemesis can learn! Some of these apply to any target they are fighting, others only apply to you, the player.
+There are over 45 abilities a Nemesis can learn! Some of these apply to any target they are fighting, others only apply to you, the player.
 The abilities are:
 
       - ImmuneFire (Immune to fire)
@@ -176,6 +186,8 @@ The abilities are:
       - BadOmen (Gives Bad Omen to whoever kills them)
       - GolemToss (Tosses you up like an Iron Golem when they hit you)
       - DashStrike (Quickly launches towards you from a long distance, and delievers multi-hit damage. Unstunable when doing this ability, but can still take fall damage)
+      - Sniper (Nemesis with a bow/crossbow tries to shoot you with a high velocity arrow from a long distance)
+      - Backstabber (Deals 2x damage from hitting an enemy from behind)
 
 ### Shaming
 
