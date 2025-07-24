@@ -94,6 +94,8 @@ To view all Nemeses on the server, do **/npc list** (make sure you gave yourself
 
 If you need to select a Nemesis for whatever reason, look at them and do **/npc sel** or type out their ID in **/npc list** and do **/npc sel (id)**. With a Nemesis selected, you can despawn them (**/npc despawn**), teleport them to you (**/npc tphere**), teleport yourself to them (**/npc tp**), permanently kill them (**/sentinel kill**), etc. 
 
+**NEVER USE /npc remove OR CLICK IT IN THE MENU.** If you no longer want a particular Nemesis, run **/sentinel kill**
+
 For commands to use and modify on NPCs like Nemeses, you can check the following webpages out:
 
 https://wiki.citizensnpcs.co/Citizens_Wiki
