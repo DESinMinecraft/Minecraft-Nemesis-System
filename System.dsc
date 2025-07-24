@@ -14,7 +14,7 @@ OrcGruntEquip:
                 - equip <context.entity> head:<item[<[headgear]>].with[trim=<map[material=<[Material]>;pattern=<[Pattern]>]>]>
                 - if <util.random_chance[4]>:
                     - define modifier <util.random.int[1].to[5]>
-                    - equip <context.entity> head:<[headgear]>[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].random>,<[modifier]>]
+                    - equip <context.entity> head:<item[<[headgear]>].with[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].get[Helmet].random>,<[modifier]>]>
 
         - define chestgear <list[leather_chestplate|chainmail_chestplate|golden_chestplate|iron_chestplate|diamond_chestplate|netherite_chestplate|AIR].random>
         - if <[chestgear]> !matches air:
@@ -27,7 +27,7 @@ OrcGruntEquip:
                 - equip <context.entity> chest:<item[<[chestgear]>].with[trim=<map[material=<[Material]>;pattern=<[Pattern]>]>]>
                 - if <util.random_chance[4]>:
                     - define modifier <util.random.int[1].to[5]>
-                    - equip <context.entity> chest:<[chestgear]>[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].random>,<[modifier]>]
+                    - equip <context.entity> chest:<item[<[chestgear]>].with[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].get[Chestplate].random>,<[modifier]>]>
 
 
         - define leggear <list[leather_leggings|chainmail_leggings|golden_leggings|iron_leggings|diamond_leggings|netherite_leggings|AIR].random>
@@ -41,7 +41,7 @@ OrcGruntEquip:
                 - equip <context.entity> legs:<item[<[leggear]>].with[trim=<map[material=<[Material]>;pattern=<[Pattern]>]>]>
                 - if <util.random_chance[4]>:
                     - define modifier <util.random.int[1].to[5]>
-                    - equip <context.entity> legs:<[leggear]>[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].random>,<[modifier]>]
+                    - equip <context.entity> legs:<item[<[leggear]>].with[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].get[Leggings].random>,<[modifier]>]>
 
 
         - define bootgear <list[leather_boots|chainmail_boots|golden_boots|iron_boots|diamond_boots|netherite_boots|AIR].random>
@@ -55,7 +55,7 @@ OrcGruntEquip:
                 - equip <context.entity> boots:<item[<[bootgear]>].with[trim=<map[material=<[Material]>;pattern=<[Pattern]>]>]>
                 - if <util.random_chance[4]>:
                     - define modifier <util.random.int[1].to[5]>
-                    - equip <context.entity> boots:<[bootgear]>[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].random>,<[modifier]>]
+                    - equip <context.entity> boots:<item[<[bootgear]>].with[enchantments=<script[AllEnchants].data_key[Enchants].get[Armor].get[Boots].random>,<[modifier]>]>
 
         - if <context.entity> matches husk|piglin|ZOMBIFIED_PIGLIN|piglin_brute|ZOMBIE_VILLAGER:
             - if <util.random_chance[10]>:
@@ -95,10 +95,10 @@ OrcGruntEquip:
         - random:
             - random:
                 - repeat 1:
-                    - define sword <list[wooden_sword|stone_sword|golden_sword|iron_sword|diamond_sword|netherite_sword].random>
+                    - define sword <script[AllEnchants].data_key[Weapons].get[swords].random>
                     - equip <context.entity> hand:<[sword]>
                     - if <util.random_chance[18]>:
-                        - equip <context.entity> offhand:shield
+                        - equip <context.entity> offhand:<item[shield].with[base_color=<util.color_names.random>]>
                         - cast slow <context.entity> duration:infinite amplifier:0
                     - else:
                         - cast speed <context.entity> duration:infinite amplifier:0
@@ -107,7 +107,7 @@ OrcGruntEquip:
                         - equip <context.entity> hand:<[sword]>[enchantments=<script[AllEnchants].data_key[Enchants].get[NormalMelee].random>,<[modifier]>]
             - random:
                 - repeat 1:
-                    - define Axe <list[wooden_axe|stone_axe|golden_axe|iron_axe|diamond_axe|netherite_axe].random>
+                    - define Axe <script[AllEnchants].data_key[Weapons].get[axes].random>
                     - equip <context.entity> hand:<[Axe]>
                     - equip <context.entity> offhand:<[Axe]>
                     - if <util.random_chance[8]>:
@@ -154,6 +154,7 @@ ConvertAllyTarget:
                 - attack <context.entity> target:<[entity]>
                 - determine <[entity]>
         - determine cancelled
+
 
 ConvertAllyFriendly:
     debug: false
@@ -209,11 +210,7 @@ ConvertAllyHurtAlly:
             - if !<[entity].has_flag[Convert]> && !<[entity].is_player> && <context.entity.location.find_entities[monster|npc].within[20].is_truthy>:
                 - adjust <context.damager> last_hurt_by:<[entity]>
             #    - attack <context.entity> target:<[entity]>
-#OrcGruntAxeAttack:
-#    type: world
-#    events:
-#        on husk||ZOMBIFIED_PIGLIN||PIGLIN damages entity with:*_axe:
-#        - determine <context.damage.mul[1.1]>
+
 
 PlayerStunAttack:
     debug: false
@@ -577,10 +574,10 @@ NemesisMake:
         - assignment add BREAKBLOCKASSIGNMENT to:<entry[NCreate].created_npc>
         - assignment add PLAYERHIGHUPASSIGNMENT to:<entry[NCreate].created_npc>
         - assignment add PlaceBlockAssignment to:<entry[NCreate].created_npc>
-        - if <context.damager.item_in_hand> matches bow || <context.damager.item_in_hand> matches trident:
+        - if <context.damager.item_in_hand> matches bow || <context.damager.item_in_hand> matches trident || <context.damager.item_in_hand> matches crossbow:
             - assignment remove PLAYERHIGHUPASSIGNMENT to:<entry[NCreate].created_npc>
             - if <util.random_chance[20]>:
-                - define weapon <list[wooden_sword|stone_sword|golden_sword|iron_sword|diamond_sword|netherite_sword|wooden_axe|stone_axe|golden_axe|iron_axe|diamond_axe|netherite_axe].random>
+                - define weapon <list[<script[AllEnchants].data_key[Weapons].get[swords].random>|<script[AllEnchants].data_key[Weapons].get[axes].random>].random>
                 - inventory set o:<[weapon]> slot:12 destination:<entry[NCreate].created_npc>
                 - execute as_server "sentinel autoswitch"
 
@@ -610,8 +607,10 @@ NemesisMake:
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with_flag[<[Ability]>]>
                     - equip <entry[NCreate].created_npc> hand:<entry[NCreate].created_npc.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <entry[NCreate].created_npc>Hand:<entry[NCreate].created_npc.item_in_hand>
+                - else if <[Ability]> matches Sniper && <context.damager.item_in_hand> matches bow|crossbow:
+                    - flag <entry[NCreate].created_npc> Sniper
                 - else if <[Ability]> matches NoFallDamage:
-                    - execute as_server "citizens:npc pathopt --falling-distance 30"
+                    - execute as_server "citizens:npc pathopt --falling-distance 50"
                 - else if <[Ability]> matches ReinforcementMelee:
                     - assignment add ReinforcementMelee to:<entry[NCreate].created_npc>
                 - else if <[Ability]> matches ReinforcementRanged:
@@ -644,6 +643,10 @@ NemesisMake:
                     - assignment add DashStrike to:<entry[NCreate].created_npc>
                 - narrate "<&4> <entry[NCreate].created_npc.name> learned <&e><[Ability]>" targets:<player>
                 - flag <entry[NCreate].created_npc> <[Ability]>
+                - if <context.damager.item_in_offhand> !matches totem_of_undying && <entry[NCreate].created_npc.has_flag[Totem]>:
+                    - flag <entry[NCreate].created_npc> Totem:!
+                - if <context.damager.item_in_hand> !matches crossbow|bow && <entry[NCreate].created_npc.has_flag[Sniper]>:
+                    - flag <entry[NCreate].created_npc> Sniper:!
 
 
 NemesisBuff:
@@ -677,7 +680,7 @@ NemesisBuff:
                 - if <context.damager.equipment.get[3]> matches air:
                     - equip <context.damager> chest:<list[leather_chestplate|chainmail_chestplate|golden_chestplate|iron_chestplate|diamond_chestplate|netherite_chestplate|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
-                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
+                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].get[Chestplate].random>
                 - equip <context.damager> chest:<context.damager.equipment.get[3]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their chestplate!"
                 - flag server <context.damager>Chestplate:<context.damager.equipment.get[3]>
@@ -685,7 +688,7 @@ NemesisBuff:
                 - if <context.damager.equipment.get[2]> matches air:
                     - equip <context.damager> legs:<list[leather_leggings|chainmail_leggings|golden_leggings|iron_leggings|diamond_leggings|netherite_leggings|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
-                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
+                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].get[Leggings].random>
                 - equip <context.damager> legs:<context.damager.equipment.get[2]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their leggings!"
                 - flag server <context.damager>Leggings:<context.damager.equipment.get[2]>
@@ -693,7 +696,7 @@ NemesisBuff:
                 - if <context.damager.equipment.get[4]> matches air:
                     - equip <context.damager> head:<list[leather_helmet|chainmail_helmet|golden_helmet|iron_helmet|diamond_helmet|netherite_helmet|creeper_head|zombie_head|piglin_head|dragon_head|skeleton_skull|wither_skeleton_skull|carved_pumpkin|player_head|air].random>
                 - define modifier <util.random.int[1].to[5]>
-                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
+                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].get[Helmet].random>
                 - equip <context.damager> head:<context.damager.equipment.get[4]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their helmet!"
                 - flag server <context.damager>Helmet:<context.damager.equipment.get[4]>
@@ -701,7 +704,7 @@ NemesisBuff:
                 - if <context.damager.equipment.get[1]> matches air:
                      - equip <context.damager> boots:<list[leather_boots|chainmail_boots|golden_boots|iron_boots|diamond_boots|netherite_boots|AIR].random>
                 - define modifier <util.random.int[1].to[5]>
-                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].random>
+                - define RNGEnchant <script[AllEnchants].data_key[Enchants].get[Armor].get[Boots].random>
                 - equip <context.damager> boots:<context.damager.equipment.get[1]>[enchantments=<[RNGEnchant]>,<[modifier]>]
                 - narrate "<&4><context.damager.name> got the enchant of <&e><[RNGEnchant]> <&4>with a level of <&e><[modifier]><&4> on their boots!"
                 - flag server <context.damager>Boots:<context.damager.equipment.get[1]>
@@ -735,8 +738,10 @@ NemesisBuff:
                     - equip <context.damager> hand:<context.damager.item_in_hand.with_flag[<[Ability]>]>
                     - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
                     - flag server <context.damager>Hand:<context.damager.item_in_hand>
+                - else if <[Ability]> matches Sniper && <context.damager.item_in_hand> matches bow|crossbow:
+                    - flag <npc> Sniper
                 - else if <[Ability]> matches NoFallDamage:
-                    - execute as_server "citizens:npc pathopt --falling-distance 30"
+                    - execute as_server "citizens:npc pathopt --falling-distance 50"
                 - else if <[Ability]> matches HighJumper:
                     - cast <npc> JUMP amplifier:1 duration:infinite
                 - else if <[Ability]> matches FastMiner:
@@ -773,6 +778,10 @@ NemesisBuff:
                     - assignment add DashStrike to:<context.damager>
                 - flag <context.damager> <[Ability]>
                 - narrate "<&4><context.damager.name> learned <&e><[Ability]>" targets:<player>
+                - if <context.damager.item_in_offhand> !matches totem_of_undying && <context.damager.has_flag[Totem]>:
+                    - flag <context.damager> Totem:!
+                - if <context.damager.item_in_hand> !matches crossbow|bow && <context.damager.has_flag[Sniper]>:
+                    - flag <context.damager> Sniper:!
 #            - if <context.damager.has_flag[PoisonDamage]> || <context.damager.has_flag[WitherDamage]> || <context.damager.has_flag[HungerDamage]> :
 #                - stop
             - if <util.random_chance[20]>:
@@ -782,7 +791,7 @@ NemesisBuff:
                 - equip <context.damager> hand:<context.damager.item_in_hand.with[lore=<[Ability]> on enemies]>
                 - flag server <context.damager>Hand:<context.damager.item_in_hand>
                 - narrate "<&4><context.damager.name> Learned <&e><[Ability]>!"
-                - if <util.random_chance[30]> && <context.damager.has_flag[PoisonDamage]> && <context.damager.list_flags.size> < 10:
+                - if <util.random_chance[30]> && <context.damager.has_flag[PoisonDamage]> && <context.damager.list_flags.size> <= 10:
                     - assignment add PoisonBombAssignment to:<context.damager>
                     - narrate "<&4><context.damager.name> Learned <&e>Poison Bomb!"
                     - flag <context.damager> PoisonBomb
@@ -1000,6 +1009,7 @@ PlayerElementAttacks:
         - adjust <context.entity> velocity:0,1.0,0
         - playsound sound:ENTITY_IRON_GOLEM_ATTACK <context.entity.location> pitch:1
 
+
 NemesisHealthBar:
     debug: false
     type: world
@@ -1095,6 +1105,18 @@ NemesisMiningFatigueAttack:
             - stop
         - cast SLOW_DIGGING <context.entity> amplifier:0 duration:8s
 
+NemesisBackStabber:
+    debug: false
+    type: world
+    events:
+        on NPC_flagged:BackStabber damages entity:
+        - if <npc.has_flag[Stunned]> || ( <context.entity.is_player> && <context.damage_type_map.values.get[3]> <= 0.1 && <context.damage_type_map.values.get[3].is_truthy> ):
+            - stop
+        - if <context.entity.eye_location.facing[<context.damager>].not> && <context.damager.location.distance[<context.entity.location>]> <= 3.2:
+            - narrate "<&c><context.damager.name> did <&4><&l>2x damage <&c>by hitting you from behind!"
+            - determine <context.damage.mul[2]>
+
+
 NemesisBlocking:
     debug: false
     type: world
@@ -1102,7 +1124,7 @@ NemesisBlocking:
         on NPC_flagged:Blocking damages entity:
         - determine cancelled
         on entity damages NPC_flagged:Blocking:
-        - if <context.entity.eye_location.facing[<context.damager>]> && <context.entity.location.distance[<context.damager.location>]> <= 3:
+        - if <context.entity.eye_location.facing[<context.damager>]> && <context.entity.location.distance[<context.damager.location>]> <= 3.2:
             - determine passively cancelled
             - narrate "<&c><context.entity.name> is blocking and can't be damaged!"
 
@@ -1287,7 +1309,7 @@ NemesisFireExtinguish:
     type: world
     events:
         after NPC_flagged:!ImmuneFire damaged by FIRE|FIRE_TICK|LAVA chance:80:
-        #- ratelimit <npc> 8s
+        - ratelimit <npc> 8s
         - if <npc.health_percentage> <= 78:
             - foreach <npc.location.find_blocks[water].within[16]> as:b:
                 - if <[b].is_truthy> && <npc.location.find_path[<[b]>].is_truthy>:
@@ -1334,8 +1356,8 @@ NemesisSneaky:
     type: world
     debug: false
     events:
-        on NPC spawns:
-        - if <npc.item_in_hand> matches *sword:
+        after NPC spawns:
+        - if <npc.item_in_hand> matches *_sword && <npc.item_in_offhand> !matches shield:
             - cast SPEED amplifier:0 duration:infinite <npc>
         - else if <npc.item_in_offhand> matches shield:
             - cast slow amplifier:0 duration:infinite <npc>
@@ -1409,6 +1431,23 @@ NemesisGenericAttack:
         - ratelimit <npc> 4t
         - if <npc.has_flag[Stun]>:
             - flag server <npc>target:<npc.sentinel.chasing> expire:5s
+        - if <npc.has_flag[Sniper]> && <util.random_chance[5]> && <npc.eye_location.distance[<context.entity.eye_location>]> >= 23:
+            - ratelimit <npc> 4s
+            - narrate "<&c><npc.name> is about to snipe you!"
+            - playsound sound:ENTITY_GHAST_SCREAM <context.entity.location> pitch:1.02
+            - repeat 8:
+                 - playeffect effect:RED_DUST special_data:0.8|orange at:<npc.eye_location.points_between[<context.entity.eye_location>]> offset:0.1 quantity:1
+                 - if !<npc.can_see[<context.entity>]>:
+                    - stop
+                 - wait 0.25s
+            - if <npc.eye_location.line_of_sight[<context.entity.location>]>:
+                - shoot ARROW origin:<npc.eye_location> destination:<context.entity.location> speed:19 spread:<npc.sentinel.accuracy> shooter:<npc>
+            - else:
+                - shoot ARROW origin:<npc.eye_location> destination:<context.entity.eye_location> speed:19 spread:<npc.sentinel.accuracy> shooter:<npc>
+            - playeffect effect:RED_DUST special_data:1.5|red at:<npc.eye_location.points_between[<context.entity.eye_location>]> offset:0.1 quantity:1
+            - playsound sound:ITEM_CROSSBOW_SHOOT <player.location> volume:5.5 pitch:0.65
+            - narrate "<&c><npc.name> sniped you!"
+
         on sentinel npc has no more targets:
         - if <npc.has_flag[Stun]>:
             - flag server <npc>target:!
@@ -1766,8 +1805,8 @@ BreakBlockAssignment:
  #           - if <player.location.add[0,-1,0].material> !matches obsidian || <player.location.add[0,-1,0].material> !matches bedrock:
             - if <util.random_chance[80]>:
                 - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.Digging].random>"
-            - ~break <npc.location.find_blocks_flagged[BlockPlaced].within[5].random>
-        - else if ( !<player.location.line_of_sight[<npc.eye_location>]> || !<player.eye_location.line_of_sight[<npc.eye_location>]> ) && <player.gamemode> == Survival && !<player.location.find_path[<npc.location>].is_truthy> && <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1:
+            - ~break <npc.location.find_blocks_flagged[BlockPlaced].within[5].first>
+        - else if ( !<player.location.line_of_sight[<npc.eye_location>]> || !<player.eye_location.line_of_sight[<npc.eye_location>]> ) && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1 && !<player.location.find_path[<npc.location>].is_truthy>:
             - if !<player.location.line_of_sight[<npc.location>]> && <npc.cursor_on_solid.exists>:
                 - ~walk <npc> <player.location>
                 - look <npc> <npc.location.forward.above> duration:0.2s
@@ -1820,7 +1859,7 @@ PlayerHighUpAssignment:
                     - narrate "<&c><npc.name>: <script[AllEnchants].parsed_key[Quotes.HighUp].random>"
                 - ~shoot spectral_arrow origin:<npc.eye_location> shooter:<npc> destination:<player.eye_location> speed:1 spread:<npc.sentinel.accuracy.mul[100]>
                 - stop
-        - else if ( <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1 ) && <player.gamemode> == Survival && <util.random_chance[80]> && !<player.location.find_path[<npc.location>].is_truthy> && <player.location.line_of_sight[<npc.eye_location>]>:
+        - else if ( <player.location.y.sub[<npc.location.y>]> >= -1 && <player.location.y.sub[<npc.location.y>]> <= 1 ) && <player.gamemode> == Survival && <util.random_chance[80]> && <player.location.line_of_sight[<npc.eye_location>]> && !<player.location.find_path[<npc.location>].is_truthy>:
                 - look <npc> <player.eye_location.add[0,1,0]> duration:0.5s
                 - adjust <npc> velocity:0,0.42,0
                 - wait 2t
@@ -1842,10 +1881,10 @@ PlaceBlockAssignment:
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 2s
-        - if <util.random_chance[25]> && <player.gamemode> == Survival && <npc.has_flag[ThrowEnderPearl]> && ( <player.location.y.sub[<npc.location.y>]> <= -3 || <player.location.y.sub[<npc.location.y>]> >= 3 ) && !<player.location.find_path[<npc.location>].is_truthy> && <npc.can_see[<player>]>:
+        - if <util.random_chance[25]> && <player.gamemode> == Survival && <npc.has_flag[ThrowEnderPearl]> && ( <player.location.y.sub[<npc.location.y>]> <= -3 || <player.location.y.sub[<npc.location.y>]> >= 3 ) && <npc.can_see[<player>]> && !<player.location.find_path[<npc.location>].is_truthy>:
             - look <npc> <server.flag[<npc>target].eye_location> duration:0.2s
             - ~shoot ender_pearl speed:1 spread:<npc.sentinel.accuracy.mul[50]> origin:<npc.eye_location> shooter:<npc>
-        - if <util.random_chance[99]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> <= -2 && !<player.location.find_path[<npc.location>].is_truthy> && <npc.location.below> !matches air|water|lava:
+        - if <util.random_chance[99]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> <= -2 && <npc.location.below> !matches air|water|lava && !<player.location.find_path[<npc.location>].is_truthy>:
            - ~break <npc.location.below>
         - if <player.gamemode> == Survival && <npc.eye_location.center.find_blocks[!air].within[1.1].size> == 4:
            - if <util.random_chance[25]>:
@@ -1859,7 +1898,7 @@ PlaceBlockAssignment:
            - else:
                - modifyblock <npc.location> dirt
                - adjust <npc.location> coreprotect_log_placement:[user=<npc.name>;material=dirt]
-        - else if <util.random_chance[66]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 5 && <npc.eye_location.above> matches air && !<player.location.find_path[<npc.location>].is_truthy> && <npc.location.find_blocks[!air|water|lava].within[1].is_truthy>:
+        - else if <util.random_chance[66]> && <player.gamemode> == Survival && <player.location.y.sub[<npc.location.y>]> >= 5 && <npc.eye_location.above> matches air && <npc.location.find_blocks[!air|water|lava].within[1].is_truthy> && !<player.location.find_path[<npc.location>].is_truthy>:
            - adjust <npc> velocity:0,0.53,0
            - wait 1t
            - if <npc.age.exists> && <npc.is_baby>:
@@ -1869,7 +1908,7 @@ PlaceBlockAssignment:
            - else:
                - modifyblock <npc.location> dirt
                - adjust <npc.location> coreprotect_log_placement:[user=<npc.name>;material=dirt]
-        - else if <util.random_chance[85]> && <npc.eye_location.above> !matches air|water|lava && !<player.location.find_path[<npc.location>].is_truthy> &&  <player.gamemode> == Survival:
+        - else if <util.random_chance[85]> && <npc.eye_location.above> !matches air|water|lava && <player.gamemode> == Survival && !<player.location.find_path[<npc.location>].is_truthy>:
             - ~break <npc.eye_location.above>
         - else if <npc.location> !matches air|water|lava:
            - adjust <npc> velocity:0,0.53,0
@@ -1885,10 +1924,31 @@ ReinforcementMelee:
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 12s
-        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]>:
+        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
            - define Amount <util.random.int[1].to[3]>
            - repeat <[Amount]>:
-                - spawn husk <npc.location> target:<server.flag[<npc>target]>
+                - if <npc.entity_type> matches stray|husk:
+                    - spawn husk <npc.location> target:<server.flag[<npc>target]>
+                - else if <npc.entity_type> matches zombie_villager:
+                    - spawn zombie_villager <npc.location> target:<server.flag[<npc>target]>
+                - else if <npc.entity_type> matches drowned:
+                    - spawn drowned <npc.location> target:<server.flag[<npc>target]>
+                - else if <npc.entity_type> matches piglin_brute|zombified_piglin:
+                    - spawn <npc.entity_type> <npc.location> target:<server.flag[<npc>target]>
+                - else if <npc.entity_type> matches piglin:
+                    - spawn piglin <npc.location> target:<server.flag[<npc>target]> save:Melee
+                    - if <entry[Melee].spawned_entity.item_in_hand> matches crossbow:
+                        - equip <entry[Melee].spawned_entity> hand:<script[AllEnchants].data_key[Weapons].get[swords].random>
+                        - cast speed <entry[Melee].spawned_entity.item_in_hand> duration:infinite amplifier:0
+                - else if <npc.entity_type> matches wither_skeleton:
+                    - spawn wither_skeleton <npc.location> target:<server.flag[<npc>target]> save:Melee
+                    - if <entry[Melee].spawned_entity.item_in_hand> matches bow:
+                        - equip <entry[Melee].spawned_entity> hand:<script[AllEnchants].data_key[Weapons].get[swords].random>
+                        - cast speed <entry[Melee].spawned_entity.item_in_hand> duration:infinite amplifier:0
+                - else:
+                    - spawn husk <npc.location> target:<server.flag[<npc>target]>
+
+
            - narrate "<&c><npc.name> called in melee reinforcements!"
            - playsound sound:item_goat_horn_sound_5 <npc.location>
         on damaged:
@@ -1903,10 +1963,19 @@ ReinforcementRanged:
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 12s
-        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]>:
+        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
            - define Amount <util.random.int[1].to[3]>
            - repeat <[Amount]>:
-                - spawn stray <npc.location> target:<server.flag[<npc>target]>
+                - if <npc.entity_type> matches Piglin|Piglin_Brute|Zombified_Piglin:
+                    - spawn piglin <npc.location> target:<server.flag[<npc>target]> save:Ranged
+                    - if <entry[Ranged].spawned_entity.item_in_hand> !matches crossbow:
+                        - equip <entry[Ranged].spawned_entity> hand:crossbow
+                - else if <npc.entity_type> matches Wither_skeleton:
+                    - spawn wither_skeleton <npc.location> target:<server.flag[<npc>target]> save:Ranged
+                    - if <entry[Ranged].spawned_entity.item_in_hand> !matches bow:
+                        - equip <entry[Ranged].spawned_entity> hand:bow
+                - else:
+                    - spawn stray <npc.location> target:<server.flag[<npc>target]>
            - narrate "<&c><npc.name> called in ranged reinforcements!"
            - playsound sound:item_goat_horn_sound_5 <npc.location>
         on damaged:
@@ -1921,7 +1990,7 @@ ReinforcementWolves:
         on move proximity:
         - determine passively cancelled
         - ratelimit <npc> 12s
-        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]>:
+        - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
            - define Amount <util.random.int[1].to[4]>
            - repeat <[Amount]>:
                 - spawn wolf <npc.location> target:<server.flag[<npc>target]>
