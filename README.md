@@ -39,6 +39,7 @@ Currently (4/29/2024), the Dynamic Enemy System supports 1.20.4. 1.20.6 should b
 These plugins are REQUIRED for the Dynamic Enemy System to work. Upload these files to the plugins folder of your server. You can download them here:
 
 **Denizen** (what the Dynamic Enemy System runs on): https://ci.citizensnpcs.co/job/Denizen/
+
 **Denizen Developer builds for newer, not properly tested Minecraft versions:** https://ci.citizensnpcs.co/job/Denizen_Developmental/
 
 LAST DENIZEN BUILD FOR 1.20.4: https://ci.citizensnpcs.co/job/Denizen/1804/
