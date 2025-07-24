@@ -20,6 +20,8 @@ AllEnchants:
       - punch
       - unbreaking
       - mending
+      - multishot
+      - piercing
       Crossbow:
       - vanishing_curse
       - unbreaking
@@ -27,6 +29,10 @@ AllEnchants:
       - multishot
       - piercing
       - quick_charge
+      - infinity
+      - flame
+      - power
+      - punch
       Trident:
       - channeling
       - vanishing_curse
@@ -36,34 +42,68 @@ AllEnchants:
       - riptide
       - unbreaking
       Armor:
-      - vanishing_curse
-      - binding_curse
-      - blast_protection
-      - fire_protection
-      - projectile_protection
-      - protection
-      - thorns
-      - mending
-      - unbreaking
-      - frost_walker
-      - soul_speed
-      - depth_strider
-      - aqua_affinity
-      - feather_falling
-      - respiration
-      - swift_sneak
-      shovels:
-      - wooden
-      - stone
-      - gold
-      - diamond
-      - netherite
-      pickaxes:
-      - wooden
-      - stone
-      - gold
-      - diamond
-      - netherite
+        Helmet:
+        - aqua_affinity
+        - blast_protection
+        - binding_curse
+        - vanishing_curse
+        - fire_protection
+        - mending
+        - projectile_protection
+        - protection
+        - respiration
+        - thorns
+        - unbreaking
+        Chestplate:
+        - blast_protection
+        - binding_curse
+        - vanishing_curse
+        - fire_protection
+        - mending
+        - projectile_protection
+        - protection
+        - thorns
+        - unbreaking
+        Leggings:
+        - blast_protection
+        - binding_curse
+        - vanishing_curse
+        - fire_protection
+        - mending
+        - projectile_protection
+        - protection
+        - swift_sneak
+        - thorns
+        - unbreaking
+        Boots:
+        - blast_protection
+        - binding_curse
+        - vanishing_curse
+        - depth_strider
+        - feather_falling
+        - fire_protection
+        - frost_walker
+        - mending
+        - projectile_protection
+        - protection
+        - soul_speed
+        - thorns
+        - unbreaking
+    Weapons:
+      swords:
+      - wooden_sword
+      - stone_sword
+      - iron_sword
+      - golden_sword
+      - diamond_sword
+      - netherite_sword
+      axes:
+      - wooden_axe
+      - stone_axe
+      - iron_axe
+      - golden_axe
+      - diamond_axe
+      - netherite_axe
     Trims:
       Material:
       - AMETHYST
@@ -135,6 +175,8 @@ AllEnchants:
       - BadOmen
       - GolemToss
       - DashStrike
+      - Sniper
+      - BackStabber
     Names:
       First:
       - Abaddon
