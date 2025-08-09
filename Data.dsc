@@ -116,10 +116,13 @@ AllEnchants:
       - NETHERITE
       - QUARTZ
       - REDSTONE
+      - RESIN
       Pattern:
+      - BOLT
       - COAST
       - DUNE
       - EYE
+      - FLOW
       - HOST
       - RAISER
       - RIB
