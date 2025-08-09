@@ -2,7 +2,7 @@ OrcGruntEquip:
     debug: false
     type: world
     events:
-        on husk||stray||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||PIGLIN_BRUTE||DROWNED|ZOMBIE_VILLAGER spawns:
+        on husk||stray||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||PIGLIN_BRUTE||DROWNED|ZOMBIE_VILLAGER||BOGGED spawns:
         - define headgear <list[leather_helmet|chainmail_helmet|golden_helmet|iron_helmet|diamond_helmet|netherite_helmet|air].random>
         - if <[headgear]> !matches air:
 
@@ -64,12 +64,12 @@ OrcGruntEquip:
                     - mount <context.entity>|spider <context.location>
 
 
-        - if <context.entity> matches stray:
+        - if <context.entity> matches stray|bogged:
             - if <util.random_chance[10]>:
                 - random:
-                    - mount stray|phantom <context.location>
-                    - mount stray|chicken <context.location>
-                    - mount stray|spider <context.location>
+                    - mount <context.entity>|phantom <context.location>
+                    - mount <context.entity>|chicken <context.location>
+                    - mount <context.entity>|spider <context.location>
             - if <util.random_chance[8]>:
                 - define modifier <util.random.int[1].to[5]>
                 - equip <context.entity> hand:bow[enchantments=<script[AllEnchants].data_key[Enchants].get[bow].random>,<[modifier]>]
@@ -77,10 +77,10 @@ OrcGruntEquip:
         - if <context.entity> matches wither_skeleton:
             - if <util.random_chance[15]>:
                 - random:
-                    - mount wither_skeleton|phantom <context.location>
-                    - mount wither_skeleton|chicken <context.location>
-                    - mount wither_skeleton|spider <context.location>
-                    - mount wither_skeleton|wither_skeleton <context.location>
+                    - mount <context.entity>|phantom <context.location>
+                    - mount <context.entity>|chicken <context.location>
+                    - mount <context.entity>|spider <context.location>
+                    - mount <context.entity>|wither_skeleton <context.location>
             - if <util.random_chance[20]>:
                 - define modifier <util.random.int[1].to[5]>
                 - equip <context.entity> hand:bow[enchantments=<script[AllEnchants].data_key[Enchants].get[bow].random>,<[modifier]>]
@@ -128,7 +128,7 @@ OrcGruntSpearThrow:
     debug: false
     type: world
     events:
-        on husk||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||STRAY||PIGLIN_BRUTE|ZOMBIE_VILLAGER targets entity:
+        on husk||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||STRAY||PIGLIN_BRUTE|ZOMBIE_VILLAGER|BOGGED targets entity:
 #        - if <context.target.is_player> && <context.entity.has_flag[Convert]>:
 #            - determine passively cancelled
         - if <context.entity.item_in_hand> matches trident:
@@ -216,7 +216,7 @@ PlayerStunAttack:
     debug: false
     type: world
     events:
-        on player right clicks husk|stray|iron_golem|spider|creeper|ZOMBIFIED_PIGLIN|ZOMBIE_VILLAGER|PIGLIN|MAGMA_CUBE|WITHER_SKELETON|NPC|PIGLIN_BRUTE|DROWNED|ENDERMAN:
+        on player right clicks husk|stray|iron_golem|spider|creeper|ZOMBIFIED_PIGLIN|ZOMBIE_VILLAGER|PIGLIN|MAGMA_CUBE|WITHER_SKELETON|NPC|PIGLIN_BRUTE|DROWNED|ENDERMAN|BOGGED:
         - ratelimit <player> 2s
         - if <player.item_in_hand> matches iron_ingot || <player.item_in_offhand> matches iron_ingot:
             - stop
@@ -411,7 +411,7 @@ PlayerDaggerAttack:
     debug: false
     type: world
     events:
-        after player right clicks block type:air with:!bow|trident|crossbow|*helmet|*chestplate|*leggings|*boots|*SHARD|convertitem|apple|*chicken|*steak|*porkchop|egg|snowball|enderpearl|*eye|*wood|*planks|*log|*block|*stone|ENDER_PEARL:
+        after player right clicks block type:air with:!bow|trident|crossbow|*helmet|*chestplate|*leggings|*boots|*SHARD|convertitem|apple|*chicken|*steak|*porkchop|egg|snowball|enderpearl|*eye|*wood|*planks|*log|*block|*stone|ENDER_PEARL|bone:
         - if <player.item_in_hand.material.is_edible>:
             - stop
         - if <player.has_flag[Wraith.BraceofDaggers.Attack.FleetingEdge]>:
@@ -505,7 +505,7 @@ NemesisMake:
     debug: false
     type: world
     events:
-        on player dies by:husk||stray||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||DROWNED||PIGLIN_BRUTE|ZOMBIE_VILLAGER:
+        on player dies by:husk||stray||ZOMBIFIED_PIGLIN||PIGLIN||WITHER_SKELETON||DROWNED||PIGLIN_BRUTE|ZOMBIE_VILLAGER||BOGGED:
         - sidebar remove
         - flag <player> combo:0
         - announce "Death at <player.location.simple>"
@@ -1584,7 +1584,7 @@ NemesisSpawn:
                     - spawn <[RandomNemesis]> <[p].location.add[<[px]>,<[py]>,<[pz]>]>
                     - narrate "<&c>Careful <[p].name>! A Nemesis has spawned near you!" targets:<[p]>
                 - else:
-                    - narrate "<&4>There are no Nemeses in the database. Die to husk/stray/drowned/wither skeleton/piglin/pigman type mobs to generate a Nemesis!" targets:<[p]>
+                    - narrate "<&4>There are no Nemeses in the database. Die to husk/stray/bogged/drowned/wither skeleton/piglin/pigman type mobs to generate a Nemesis!" targets:<[p]>
             - ratelimit <[p]> 10s
             - if <[p].location.find_npcs_within[22].size> == 0:
                 - sidebar remove
@@ -1927,7 +1927,7 @@ ReinforcementMelee:
         - if <player.gamemode> == Survival && <util.random_chance[24]> && <player.eye_location.line_of_sight[<npc.eye_location>]> && !<npc.has_flag[Stunned]>:
            - define Amount <util.random.int[1].to[3]>
            - repeat <[Amount]>:
-                - if <npc.entity_type> matches stray|husk:
+                - if <npc.entity_type> matches stray|husk|bogged:
                     - spawn husk <npc.location> target:<server.flag[<npc>target]>
                 - else if <npc.entity_type> matches zombie_villager:
                     - spawn zombie_villager <npc.location> target:<server.flag[<npc>target]>
@@ -1974,6 +1974,8 @@ ReinforcementRanged:
                     - spawn wither_skeleton <npc.location> target:<server.flag[<npc>target]> save:Ranged
                     - if <entry[Ranged].spawned_entity.item_in_hand> !matches bow:
                         - equip <entry[Ranged].spawned_entity> hand:bow
+                - else if <npc.entity_type> matches BOGGED:
+                    - spawn bogged <npc.location> target:<server.flag[<npc>target]>
                 - else:
                     - spawn stray <npc.location> target:<server.flag[<npc>target]>
            - narrate "<&c><npc.name> called in ranged reinforcements!"
